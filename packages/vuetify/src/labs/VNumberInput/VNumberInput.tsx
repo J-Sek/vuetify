@@ -49,6 +49,22 @@ const makeVNumberInputProps = propsFactory({
     type: Number,
     default: 1,
   },
+  grouping: {
+    type: [Boolean, String],
+    default: false,
+  },
+  precision: {
+    type: [Number, String],
+    default: -1,
+  },
+  locale: {
+    type: String,
+    default: undefined,
+  },
+  formatterOptions: {
+    type: Object, // expecting Intl.NumberFormatOptions,
+    default: null,
+  },
 
   ...omit(makeVTextFieldProps(), ['appendInnerIcon', 'prependInnerIcon']),
 }, 'VNumberInput')
@@ -105,8 +121,35 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
     const controlNodeDefaultHeight = computed(() => controlVariant.value === 'stacked' ? 'auto' : '100%')
 
     const incrementSlotProps = computed(() => ({ click: onClickUp }))
-
     const decrementSlotProps = computed(() => ({ click: onClickDown }))
+
+    const precisionToEnforce = computed(() => {
+      if (props.precision === null || props.precision === -1) return undefined
+      const precision = Number(props.precision)
+      const isValid = precision >= 0 && precision < 15 && Number.isInteger(precision)
+      // if (!isValid) console.warn(`VNumberInput precision needs to be an integer in [0-15] range, received ${props.precision}`)
+      return isValid ? precision : undefined
+    })
+
+    const precisionRules = computed(() => {
+      return precisionToEnforce.value !== undefined
+        ? [
+          (v: string | null) => !v || getDecimals(extractNumber(v) || 0) <= precisionToEnforce.value! || `Expected up to ${props.precision} decimal places`,
+        ]
+        : []
+    })
+
+    const numberFormatter = computed(() => {
+      return precisionToEnforce.value !== undefined || props.grouping || props.formatterOptions || props.locale
+        ? Intl.NumberFormat(props.locale, {
+          useGrouping: props.grouping,
+          minimumFractionDigits: precisionToEnforce.value,
+          maximumFractionDigits: precisionToEnforce.value,
+          roundingMode: 'trunc',
+          ...props.formatterOptions,
+        } as any)
+        : { format: (v: number) => v.toFixed(getDecimals(v)) }
+    })
 
     function toggleUpDown (increment = true) {
       if (controlsDisabled.value) return
@@ -165,8 +208,12 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
     function syncTextModel () {
       if (isTyping.value) return
       textModel.value = typeof model.value === 'number' && !isNaN(model.value)
-        ? model.value.toFixed(getDecimals(model.value))
+        ? numberFormatter.value.format(model.value)
         : null
+
+      if (precisionToEnforce.value !== undefined && getDecimals(model.value) > precisionToEnforce.value) {
+        model.value = Number(textModel.value)
+      }
     }
 
     watch(model, () => syncTextModel(), { immediate: true })
@@ -316,7 +363,12 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
             },
             props.class,
           ]}
-          { ...textFieldProps }
+          {
+            ...{
+              ...textFieldProps,
+              rules: [...precisionRules.value, ...props.rules],
+            }
+          }
           style={ props.style }
           inputmode="decimal"
         >
