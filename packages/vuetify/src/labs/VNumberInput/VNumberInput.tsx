@@ -13,7 +13,7 @@ import { useProxiedModel } from '@/composables/proxiedModel'
 
 // Utilities
 import { computed, nextTick, ref, watch, watchEffect } from 'vue'
-import { clamp, extractNumber, genericComponent, getDecimals, omit, propsFactory, useRender } from '@/util'
+import { clamp, extractNumber, genericComponent, getDecimals, getNumberFormatSpec, omit, propsFactory, useRender } from '@/util'
 
 // Types
 import type { PropType } from 'vue'
@@ -85,6 +85,9 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
     const textModel = ref<string | null>(null)
     const isTyping = ref(false)
 
+    const numberFormatSpec = computed(() => getNumberFormatSpec(props.locale))
+    const decimalSeparator = computed(() => numberFormatSpec.value.decimalSeparator)
+
     const stepDecimals = computed(() => getDecimals(props.step))
     const modelDecimals = computed(() => model.value != null ? getDecimals(model.value) : 0)
 
@@ -134,13 +137,13 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
     const precisionRules = computed(() => {
       return precisionToEnforce.value !== undefined
         ? [
-          (v: string | null) => !v || getDecimals(extractNumber(v) || 0) <= precisionToEnforce.value! || `Expected up to ${props.precision} decimal places`,
+          (v: string | null) => !v || getDecimals(extractNumber(numberFormatSpec.value, v) || 0) <= precisionToEnforce.value! || `Expected up to ${props.precision} decimal places`,
         ]
         : []
     })
 
     const numberFormatter = computed(() => {
-      return precisionToEnforce.value !== undefined || props.grouping || props.formatterOptions || props.locale
+      return precisionToEnforce.value !== undefined || props.grouping || props.formatterOptions
         ? Intl.NumberFormat(props.locale, {
           useGrouping: props.grouping,
           minimumFractionDigits: precisionToEnforce.value,
@@ -148,7 +151,11 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
           roundingMode: 'trunc',
           ...props.formatterOptions,
         } as any)
-        : { format: (v: number) => v.toFixed(getDecimals(v)) }
+        : Intl.NumberFormat(props.locale, {
+          useGrouping: false,
+          maximumFractionDigits: 15,
+          roundingMode: 'trunc',
+        } as any)
     })
 
     function toggleUpDown (increment = true) {
@@ -199,8 +206,7 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
         return
       }
 
-      // Only numbers, +, - & . are allowed
-      if (!/^[0-9\-+.]+$/.test(e.key)) {
+      if (!numberFormatSpec.value.allCharacters.includes(e.key)) {
         e.preventDefault()
       }
     }
@@ -211,8 +217,8 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
         ? numberFormatter.value.format(model.value)
         : null
 
-      if (precisionToEnforce.value !== undefined && getDecimals(model.value) > precisionToEnforce.value) {
-        model.value = Number(textModel.value)
+      if (textModel.value !== null && precisionToEnforce.value !== undefined && getDecimals(model.value) > precisionToEnforce.value) {
+        model.value = extractNumber(numberFormatSpec.value, textModel.value!)
       }
     }
 
@@ -220,7 +226,7 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
 
     function onModelUpdate (v: string) {
       textModel.value = v
-      model.value = v ? extractNumber(v) : undefined
+      model.value = v ? extractNumber(numberFormatSpec.value, v) : undefined
     }
 
     async function onBlur (e: FocusEvent) {
@@ -390,6 +396,8 @@ export const VNumberInput = genericComponent<VNumberInputSlots>()({
         </VTextField>
       )
     })
+
+    return { numberFormatSpec}
   },
 })
 

@@ -427,7 +427,7 @@ export function clamp (value: number, min = 0, max = 1) {
 }
 
 export function getDecimals (value: number) {
-  const fractionDigits = (value.toString().trim().match(/\.\d+/g)?.at(0) ?? '.').length - 1
+  const fractionDigits = (value.toString().split('.').at(1) ?? '').length
   const correction = Number(value.toString().split('e')[1] ?? '0')
   return Math.max(0, fractionDigits - correction)
 }
@@ -760,13 +760,14 @@ export function templateRef () {
   return fn as TemplateRef
 }
 
-export function extractNumber (text: string): number | null {
+export function extractNumber (spec: NumberFormatSpec, text: string): number | null {
   let cleanText = text.split('')
-    .filter(x => /[\d\-.]/.test(x))
+    .filter(x => spec.allSignificantCharacters.includes(x))
     .filter((x, i, all) => (i === 0 && /[-]/.test(x)) || // sign allowed at the start
-        (x === '.' && i === all.indexOf('.')) || // decimal separator allowed only once
+        (x === spec.decimalSeparator && i === all.indexOf(spec.decimalSeparator)) || // decimal separator allowed only once
         /\d/.test(x))
     .join('')
+    .replace(spec.decimalSeparator, '.')
 
   const hasAnyDigit = /\d/.test(cleanText)
   if (!hasAnyDigit) return null
@@ -792,4 +793,31 @@ export function extractNumber (text: string): number | null {
   if (cleanText === '-0') return 0
 
   return Number(cleanText)
+}
+
+export type NumberFormatSpec = {
+  groupSeparator: string
+  decimalSeparator: string
+  allCharacters: string[]
+  allSignificantCharacters: string[]
+}
+
+export function getNumberFormatSpec (locale: string | undefined): NumberFormatSpec {
+  const formatter = Intl.NumberFormat(locale, { useGrouping: true, minimumFractionDigits: 1 })
+  const formatedValue = formatter.format(-9876543210)
+
+  const negativeNumberSignFirst = formatedValue.startsWith('-')
+  const groupSeparatorIndex = negativeNumberSignFirst ? -6 : -7
+  const decimalSeparatorIndex = negativeNumberSignFirst ? -2 : -3
+
+  const groupSeparator = formatedValue.at(groupSeparatorIndex)!
+  const decimalSeparator = formatedValue.at(decimalSeparatorIndex)!
+  const digits = formatedValue.split('').filter(x => x !== groupSeparator && x !== decimalSeparator)
+
+  return {
+    groupSeparator,
+    decimalSeparator,
+    allCharacters: ['+', '-', groupSeparator, decimalSeparator, ...digits],
+    allSignificantCharacters: ['-', decimalSeparator, ...digits],
+  }
 }
