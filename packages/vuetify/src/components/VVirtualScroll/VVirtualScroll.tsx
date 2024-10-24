@@ -7,11 +7,12 @@ import { VVirtualScrollItem } from './VVirtualScrollItem'
 // Composables
 import { makeComponentProps } from '@/composables/component'
 import { makeDimensionProps, useDimension } from '@/composables/dimensions'
+import { emptyNested, VNestedSuppressionSymbol, VNestedSymbol } from '@/composables/nested/nested'
 import { useToggleScope } from '@/composables/toggleScope'
 import { makeVirtualProps, useVirtual } from '@/composables/virtual'
 
 // Utilities
-import { onMounted, onScopeDispose, toRef } from 'vue'
+import { computed, inject, onMounted, onScopeDispose, provide, toRef, watch } from 'vue'
 import {
   convertToUnit,
   genericComponent,
@@ -23,6 +24,7 @@ import {
 
 // Types
 import type { PropType, Ref } from 'vue'
+import type { InternalItem } from '@/composables/filter'
 import type { GenericProps } from '@/util'
 
 export interface VVirtualScrollSlot<T> {
@@ -73,6 +75,9 @@ export const VVirtualScroll = genericComponent<new <T, Renderless extends boolea
       computedItems,
     } = useVirtual(props, toRef(props, 'items'))
 
+    const nestedRoot = inject(VNestedSymbol, emptyNested)
+    provide(VNestedSuppressionSymbol, true)
+
     useToggleScope(() => props.renderless, () => {
       function handleListeners (add = false) {
         const method = add ? 'addEventListener' : 'removeEventListener'
@@ -92,6 +97,15 @@ export const VVirtualScroll = genericComponent<new <T, Renderless extends boolea
       })
       onScopeDispose(handleListeners)
     })
+
+    const nestedItemsIds = computed(() => props.items.map(item => (item as InternalItem<any>).value))
+    watch(nestedItemsIds, (newIds, oldIds = []) => {
+      if (!nestedRoot?.root) return
+      const addedItems = newIds.filter(id => !oldIds.includes(id))
+      const removedItems = oldIds.filter(id => !newIds.includes(id))
+      removedItems.forEach(id => nestedRoot.root.unregister(id))
+      addedItems.forEach(id => nestedRoot.root.register(id, nestedRoot.id.value))
+    }, { immediate: true })
 
     useRender(() => {
       const children = computedItems.value.map(item => (

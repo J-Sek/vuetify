@@ -81,6 +81,7 @@ type NestedProvide = {
 }
 
 export const VNestedSymbol: InjectionKey<NestedProvide> = Symbol.for('vuetify:nested')
+export const VNestedSuppressionSymbol: InjectionKey<boolean> = Symbol.for('vuetify:nested-suppress')
 
 export const emptyNested: NestedProvide = {
   id: shallowRef(),
@@ -334,11 +335,14 @@ export const useNestedItem = (id: Ref<unknown>, isGroup: boolean) => {
     isGroupActivator: parent.isGroupActivator,
   }
 
-  !parent.isGroupActivator && parent.root.register(computedId.value, parent.id.value, isGroup)
+  const isSuppressed = inject(VNestedSuppressionSymbol, false)
+  if (!isSuppressed) {
+    !parent.isGroupActivator && parent.root.register(computedId.value, parent.id.value, isGroup)
 
-  onBeforeUnmount(() => {
-    !parent.isGroupActivator && parent.root.unregister(computedId.value)
-  })
+    onBeforeUnmount(() => {
+      !parent.isGroupActivator && parent.root.unregister(computedId.value)
+    })
+  }
 
   isGroup && provide(VNestedSymbol, item)
 

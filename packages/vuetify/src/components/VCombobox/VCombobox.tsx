@@ -544,7 +544,7 @@ export const VCombobox = genericComponent<new <
                         { ({ item, index, itemRef }) => {
                           const itemProps = mergeProps(item.props, {
                             ref: itemRef,
-                            key: index,
+                            key: item.value,
                             active: (highlightFirst.value && index === 0) ? true : undefined,
                             onClick: () => select(item, null),
                           })
