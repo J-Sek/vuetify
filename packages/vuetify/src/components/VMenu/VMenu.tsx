@@ -183,11 +183,11 @@ export const VMenu = genericComponent<OverlaySlots>()({
         if (e.key === 'ArrowDown') {
           e.preventDefault()
           e.stopImmediatePropagation()
-          focusChild(el, 'next')
+          focusChild(el, 'first')
         } else if (e.key === 'ArrowUp') {
           e.preventDefault()
           e.stopImmediatePropagation()
-          focusChild(el, 'prev')
+          focusChild(el, 'last')
         } else if (props.submenu) {
           if (e.key === (isRtl.value ? 'ArrowRight' : 'ArrowLeft')) {
             isActive.value = false
@@ -199,7 +199,7 @@ export const VMenu = genericComponent<OverlaySlots>()({
       } else if (
         props.submenu
           ? e.key === (isRtl.value ? 'ArrowLeft' : 'ArrowRight')
-          : ['ArrowDown', 'ArrowUp'].includes(e.key)
+          : ['Enter', 'ArrowDown', 'ArrowUp', ' '].includes(e.key)
       ) {
         isActive.value = true
         e.preventDefault()

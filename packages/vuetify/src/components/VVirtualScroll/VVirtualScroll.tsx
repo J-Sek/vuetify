@@ -11,7 +11,7 @@ import { useToggleScope } from '@/composables/toggleScope'
 import { makeVirtualProps, useVirtual } from '@/composables/virtual'
 
 // Utilities
-import { onMounted, onScopeDispose, toRef } from 'vue'
+import { onMounted, onScopeDispose, readonly, toRef } from 'vue'
 import {
   convertToUnit,
   genericComponent,
@@ -140,6 +140,7 @@ export const VVirtualScroll = genericComponent<new <T, Renderless extends boolea
 
     return {
       calculateVisibleItems,
+      computedItems: readonly(computedItems),
       scrollToIndex,
     }
   },

@@ -247,7 +247,7 @@ export const VCombobox = genericComponent<new <
     ))
 
     const listRef = ref<VList>()
-    const listEvents = useScrolling(listRef, vTextFieldRef)
+    const listEvents = useScrolling(listRef, vTextFieldRef, vVirtualScrollRef, displayItems)
     function onClear (e: MouseEvent) {
       cleared = true
 
@@ -290,6 +290,23 @@ export const VCombobox = genericComponent<new <
 
       if (['Enter', 'ArrowDown'].includes(e.key)) {
         menu.value = true
+      }
+
+      if (['Enter', ' '].includes(e.key)) {
+        // menu is opened in VMenu
+        autoFocusModelValue()
+      }
+
+      if (['ArrowUp'].includes(e.key)) {
+        IN_BROWSER && window.requestAnimationFrame(() => {
+          vVirtualScrollRef.value?.scrollToIndex(displayItems.value.length - 1)?.then(() => {
+            listRef.value?.focus('last')
+          })
+        })
+      }
+
+      if (['ArrowDown'].includes(e.key)) {
+        listRef.value?.focus('first')
       }
 
       if (['Escape'].includes(e.key)) {
@@ -420,6 +437,22 @@ export const VCombobox = genericComponent<new <
     function onUpdateModelValue (v: any) {
       if (v == null || (v === '' && !props.multiple && !hasSelectionSlot.value)) model.value = []
     }
+    function autoFocusModelValue () {
+      if (props.hideSelected || !menu.value || !model.value.length) return
+
+      const index = displayItems.value.findIndex(
+        item => model.value.some(s => props.valueComparator(s.value, item.value))
+      )
+
+      IN_BROWSER && window.requestAnimationFrame(() => {
+        index >= 0 && vVirtualScrollRef.value?.scrollToIndex(index)?.then(() => {
+          const computedIndex =  vVirtualScrollRef.value?.computedItems.findIndex(
+            item => model.value.some(s => props.valueComparator(s.value, item.raw.value))
+          )
+          listRef.value?.focus(computedIndex)
+        })
+      })
+    }
 
     watch(isFocused, (val, oldVal) => {
       if (val || val === oldVal) return
@@ -522,6 +555,7 @@ export const VCombobox = genericComponent<new <
                   { hasList && (
                     <VList
                       ref={ listRef }
+                      virtualItems
                       selected={ selectedValues.value }
                       selectStrategy={ props.multiple ? 'independent' : 'single-independent' }
                       onMousedown={ (e: MouseEvent) => e.preventDefault() }
