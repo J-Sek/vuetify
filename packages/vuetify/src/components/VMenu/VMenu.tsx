@@ -6,7 +6,6 @@ import { VDialogTransition } from '@/components/transitions'
 import { VDefaultsProvider } from '@/components/VDefaultsProvider'
 import { VOverlay } from '@/components/VOverlay'
 import { makeVOverlayProps } from '@/components/VOverlay/VOverlay'
-import { VVirtualScroll } from '@/components/VVirtualScroll/VVirtualScroll'
 
 // Composables
 import { forwardRefs } from '@/composables/forwardRefs'
@@ -50,7 +49,7 @@ export const makeVMenuProps = propsFactory({
   // disableKeys: Boolean,
   id: String,
   submenu: Boolean,
-  virtualScroll: VVirtualScroll,
+  virtualItems: Boolean,
 
   ...omit(makeVOverlayProps({
     closeDelay: 250,
@@ -71,9 +70,10 @@ export const VMenu = genericComponent<OverlaySlots>()({
 
   emits: {
     'update:modelValue': (value: boolean) => true,
+    keydown: (value: KeyboardEvent) => true,
   },
 
-  setup (props, { slots }) {
+  setup (props, { slots, emit }) {
     const isActive = useProxiedModel(props, 'modelValue')
     const { scopeId } = useScopeId()
     const { isRtl } = useRtl()
@@ -182,29 +182,31 @@ export const VMenu = genericComponent<OverlaySlots>()({
 
       const el = overlay.value?.contentEl
       if (el && isActive.value) {
+        if (props.virtualItems && ['ArrowUp', 'ArrowDown'].includes(e.key)) {
+          if (e.defaultPrevented) emit('keydown', e)
+          return
+        }
+
         if (e.key === 'ArrowDown') {
           e.preventDefault()
           e.stopImmediatePropagation()
-          if (props.virtualScroll) props.virtualScroll.focus('next')
-          else focusChild(el, 'next')
+          focusChild(el, 'next')
         } else if (e.key === 'ArrowUp') {
           e.preventDefault()
           e.stopImmediatePropagation()
-          if (props.virtualScroll) props.virtualScroll.focus('prev')
-          else focusChild(el, 'prev')
+          focusChild(el, 'prev')
         } else if (props.submenu) {
           if (e.key === (isRtl.value ? 'ArrowRight' : 'ArrowLeft')) {
             isActive.value = false
           } else if (e.key === (isRtl.value ? 'ArrowLeft' : 'ArrowRight')) {
             e.preventDefault()
-            if (props.virtualScroll) props.virtualScroll.focus('first')
-            else focusChild(el, 'first')
+            focusChild(el, 'first')
           }
         }
       } else if (
         props.submenu
           ? e.key === (isRtl.value ? 'ArrowLeft' : 'ArrowRight')
-          : ['ArrowDown', 'ArrowUp'].includes(e.key)
+          : ['Enter', 'ArrowDown', 'ArrowUp', ' '].includes(e.key)
       ) {
         isActive.value = true
         e.preventDefault()

@@ -3,7 +3,6 @@ import './VList.sass'
 
 // Components
 import { VListChildren } from './VListChildren'
-import { VVirtualScroll } from '@/components/VVirtualScroll/VVirtualScroll'
 
 // Composables
 import { createList } from './list'
@@ -23,7 +22,7 @@ import { makeThemeProps, provideTheme } from '@/composables/theme'
 import { makeVariantProps } from '@/composables/variant'
 
 // Utilities
-import { computed, ref, shallowRef, toRef } from 'vue'
+import { computed, ref, readonly, shallowRef, toRef } from 'vue'
 import { EventProp, focusChild, genericComponent, getPropertyFromItem, omit, propsFactory, useRender } from '@/util'
 
 // Types
@@ -88,6 +87,7 @@ export const makeVListProps = propsFactory({
   activeClass: String,
   bgColor: String,
   disabled: Boolean,
+  virtualItems: Boolean,
   expandIcon: IconValue,
   collapseIcon: IconValue,
   lines: {
@@ -96,7 +96,6 @@ export const makeVListProps = propsFactory({
   },
   slim: Boolean,
   nav: Boolean,
-  virtualScroll: VVirtualScroll,
 
   'onClick:open': EventProp<[{ id: unknown, value: boolean, path: unknown[] }]>(),
   'onClick:select': EventProp<[{ id: unknown, value: boolean, path: unknown[] }]>(),
@@ -154,9 +153,10 @@ export const VList = genericComponent<new <
     'click:open': (value: { id: unknown, value: boolean, path: unknown[] }) => true,
     'click:activate': (value: { id: unknown, value: boolean, path: unknown[] }) => true,
     'click:select': (value: { id: unknown, value: boolean, path: unknown[] }) => true,
+    keydown: (value: KeyboardEvent) => true,
   },
 
-  setup (props, { slots }) {
+  setup (props, { slots, emit }) {
     const { items } = useListItems(props)
     const { themeClasses } = provideTheme(props)
     const { backgroundColorClasses, backgroundColorStyles } = useBackgroundColor(toRef(props, 'bgColor'))
@@ -170,6 +170,7 @@ export const VList = genericComponent<new <
     const activeColor = toRef(props, 'activeColor')
     const baseColor = toRef(props, 'baseColor')
     const color = toRef(props, 'color')
+    const focusedIndex = shallowRef<number | 'last' | undefined>(undefined)
 
     createList()
 
@@ -217,6 +218,18 @@ export const VList = genericComponent<new <
 
       if (!contentRef.value || ['INPUT', 'TEXTAREA'].includes(target.tagName)) return
 
+      if (props.virtualItems &&
+        (
+          (e.key === 'ArrowDown' && focusedIndex.value === 'last') ||
+          (e.key === 'ArrowUp' && focusedIndex.value === 0) ||
+          e.key === 'Home' ||
+          e.key === 'End'
+        )
+      ) {
+        emit('keydown', e)
+        return
+      }
+
       if (e.key === 'ArrowDown') {
         focus('next')
       } else if (e.key === 'ArrowUp') {
@@ -226,6 +239,7 @@ export const VList = genericComponent<new <
       } else if (e.key === 'End') {
         focus('last')
       } else {
+        emit('keydown', e)
         return
       }
 
@@ -236,10 +250,10 @@ export const VList = genericComponent<new <
       isFocused.value = true
     }
 
-    function focus (location: 'next' | 'prev' | 'first' | 'last' = 'first') {
-      if (!contentRef.value) return
-      if (props.virtualScroll) props.virtualScroll.focus(location)
-      else focusChild(contentRef.value, location)
+    function focus (location?: 'next' | 'prev' | 'first' | 'last' | number) {
+      if (contentRef.value) {
+        focusedIndex.value = focusChild(contentRef.value, location)
+      }
     }
 
     useRender(() => {
@@ -288,6 +302,7 @@ export const VList = genericComponent<new <
     return {
       open,
       select,
+      focusedIndex: readonly(focusedIndex),
       focus,
       children,
       parents,
