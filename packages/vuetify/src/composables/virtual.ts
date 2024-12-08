@@ -36,6 +36,8 @@ export function useVirtual <T> (props: VirtualProps, items: Ref<readonly T[]>) {
     itemHeight.value = parseFloat(props.itemHeight || 0)
   })
 
+  const isScrolling = shallowRef(false)
+
   const first = shallowRef(0)
   const last = shallowRef(Math.ceil(
     // Assume 16px items filling the entire screen height if
@@ -152,6 +154,7 @@ export function useVirtual <T> (props: VirtualProps, items: Ref<readonly T[]>) {
   function handleScroll () {
     if (!containerRef.value || !markerRef.value) return
 
+    isScrolling.value = true
     const scrollTop = containerRef.value.scrollTop
     const scrollTime = performance.now()
     const scrollDeltaT = scrollTime - lastScrollTime
@@ -170,6 +173,7 @@ export function useVirtual <T> (props: VirtualProps, items: Ref<readonly T[]>) {
     lastScrollTime = scrollTime
 
     calculateVisibleItems()
+    isScrolling.value = false
   }
   function handleScrollend () {
     if (!containerRef.value || !markerRef.value) return
@@ -220,13 +224,21 @@ export function useVirtual <T> (props: VirtualProps, items: Ref<readonly T[]>) {
     paddingBottom.value = calculateOffset(items.value.length) - calculateOffset(last.value)
   }
 
-  function scrollToIndex (index: number) {
+  function scrollToIndex (index: number): Promise<boolean> {
+    isScrolling.value = true
     const offset = calculateOffset(index)
     if (!containerRef.value || (index && !offset)) {
       targetScrollIndex = index
     } else {
       containerRef.value.scrollTop = offset
     }
+    return new Promise((resolve: any) => {
+      watchEffect(() => {
+        if (!isScrolling.value) {
+          IN_BROWSER && window.requestAnimationFrame(() => resolve())
+        }
+      })
+    })
   }
 
   const computedItems = computed(() => {

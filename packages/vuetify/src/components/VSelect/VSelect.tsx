@@ -28,6 +28,7 @@ import { computed, mergeProps, nextTick, ref, shallowRef, watch } from 'vue'
 import {
   checkPrintable,
   ensureValidVNode,
+  focusWithin,
   genericComponent,
   IN_BROWSER,
   matchesSelector,
@@ -38,7 +39,7 @@ import {
 } from '@/util'
 
 // Types
-import type { Component, PropType } from 'vue'
+import type { Component, PropType, Ref } from 'vue'
 import type { VFieldSlots } from '@/components/VField/VField'
 import type { VInputSlots } from '@/components/VInput/VInput'
 import type { ListItem } from '@/composables/list-items'
@@ -142,7 +143,10 @@ export const VSelect = genericComponent<new <
     const { t } = useLocale()
     const vTextFieldRef = ref()
     const vMenuRef = ref<VMenu>()
-    const vVirtualScrollRef = ref<VVirtualScroll>()
+
+    const vVirtualScrollRef: Ref<VVirtualScroll> = ref<VVirtualScroll>() as any
+    let scrollingToSelection: Promise<void> = Promise.resolve()
+
     const _menu = useProxiedModel(props, 'menu')
     const menu = computed({
       get: () => _menu.value,
@@ -198,7 +202,7 @@ export const VSelect = genericComponent<new <
     })
 
     const listRef = ref<VList>()
-    const listEvents = useScrolling(listRef, vTextFieldRef)
+    const listEvents = useScrolling(listRef, vTextFieldRef, vVirtualScrollRef, displayItems)
     function onClear (e: MouseEvent) {
       if (props.openOnClear) {
         menu.value = true
@@ -223,6 +227,18 @@ export const VSelect = genericComponent<new <
 
       if (['Enter', 'ArrowDown', ' '].includes(e.key)) {
         menu.value = true
+      }
+
+      if (['ArrowUp'].includes(e.key)) {
+        IN_BROWSER && scrollingToSelection.then(() => {
+          vVirtualScrollRef.value?.focus('prev')
+        })
+      }
+
+      if (['ArrowDown'].includes(e.key)) {
+        IN_BROWSER && scrollingToSelection.then(() => {
+          vVirtualScrollRef.value?.focus('next')
+        })
       }
 
       if (['Escape', 'Tab'].includes(e.key)) {
@@ -312,13 +328,15 @@ export const VSelect = genericComponent<new <
     }
 
     watch(menu, () => {
-      if (!props.hideSelected && menu.value && model.value.length) {
-        const index = displayItems.value.findIndex(
-          item => model.value.some(s => props.valueComparator(s.value, item.value))
-        )
-        IN_BROWSER && window.requestAnimationFrame(() => {
-          index >= 0 && vVirtualScrollRef.value?.focus(index)
-        })
+      if (props.hideSelected || !menu.value || !model.value.length || !IN_BROWSER) return
+
+      const index = displayItems.value.findIndex(
+        item => model.value.some(s => props.valueComparator(s.value, item.value))
+      )
+
+      if (index >= 0) {
+
+        scrollingToSelection = focusWithin(vVirtualScrollRef, index)
       }
     })
 
@@ -384,6 +402,7 @@ export const VSelect = genericComponent<new <
               <>
                 <VMenu
                   ref={ vMenuRef }
+                  virtualItems
                   v-model={ menu.value }
                   activator="parent"
                   contentClass="v-select__content"
@@ -393,7 +412,6 @@ export const VSelect = genericComponent<new <
                   openOnClick={ false }
                   closeOnContentClick={ false }
                   transition={ props.transition }
-                  virtualScroll={ vVirtualScrollRef.value }
                   onAfterEnter={ onAfterEnter }
                   onAfterLeave={ onAfterLeave }
                   { ...computedMenuProps.value }
@@ -401,6 +419,7 @@ export const VSelect = genericComponent<new <
                   { hasList && (
                     <VList
                       ref={ listRef }
+                      virtualItems
                       selected={ selectedValues.value }
                       selectStrategy={ props.multiple ? 'independent' : 'single-independent' }
                       onMousedown={ (e: MouseEvent) => e.preventDefault() }
@@ -409,7 +428,6 @@ export const VSelect = genericComponent<new <
                       tabindex="-1"
                       aria-live="polite"
                       color={ props.itemColor ?? props.color }
-                      virtualScroll={ vVirtualScrollRef.value }
                       { ...listEvents }
                       { ...props.listProps }
                     >
