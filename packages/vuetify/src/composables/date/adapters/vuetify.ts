@@ -11,6 +11,12 @@ function weekInfo (locale: string): { firstDay: number, firstWeekSize: number } 
   // then `new Intl.Locale(...).getWeekInfo()`
   const code = locale.slice(-2).toUpperCase()
   switch (true) {
+    case code === '001': {
+      return { firstDay: 1, firstWeekSize: 1 }
+    }
+    case locale === 'GB-alt-variant': {
+      return { firstDay: 0, firstWeekSize: 4 }
+    }
     case `AG AS BD BR BS BT BW BZ CA CO DM DO ET GT GU HK HN ID IL IN JM JP KE KH KR LA MH
     MM MO MT MX MZ NI NP PA PE PH PK PR PY SA SG SV TH TT TW UM US VE VI WS YE ZA ZW PT AI
     AL AM AR AU AZ BA BM BN BY CL CM CN CR CY EC GE HR KG KZ LB LK LV MD ME MK MN MY NZ RO
@@ -24,14 +30,8 @@ function weekInfo (locale: string): { firstDay: number, firstWeekSize: number } 
     case `AE AF BH DJ DZ EG IQ IR JO KW LY OM QA SD SY`.includes(code): {
       return { firstDay: 6, firstWeekSize: 1 }
     }
-    case `MV`.includes(code): {
+    case code === 'MV': {
       return { firstDay: 5, firstWeekSize: 1 }
-    }
-    case `GB-alt-variant`.includes(code): {
-      return { firstDay: 0, firstWeekSize: 4 }
-    }
-    case `001`.includes(code): {
-      return { firstDay: 1, firstWeekSize: 1 }
     }
     default: return null
   }
