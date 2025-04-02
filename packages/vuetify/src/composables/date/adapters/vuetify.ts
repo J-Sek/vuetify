@@ -17,10 +17,10 @@ function weekInfo (locale: string): { firstDay: number, firstWeekSize: number } 
     case locale === 'GB-alt-variant': {
       return { firstDay: 0, firstWeekSize: 4 }
     }
-    case `AG AS BD BR BS BT BW BZ CA CO DM DO ET GT GU HK HN ID IL IN JM JP KE KH KR LA MH
-    MM MO MT MX MZ NI NP PA PE PH PK PR PY SA SG SV TH TT TW UM US VE VI WS YE ZA ZW PT AI
-    AL AM AR AU AZ BA BM BN BY CL CM CN CR CY EC GE HR KG KZ LB LK LV MD ME MK MN MY NZ RO
-    RS SI TJ TM TR UA UY UZ VN XK`.includes(code): {
+    case `AG AI AL AM AR AS AU AZ BA BD BM BN BR BS BT BW BY BZ CA CL CM CN CO CR CY DM DO
+    EC ET GE GT GU HK HN HR ID IL IN JM JP KE KG KH KR KZ LA LB LK LV MD ME MH MK MM MN MO
+    MT MX MY MZ NI NP NZ PA PE PH PK PR PY RO RS SA SG SI SV TH TJ TM TR TT TW UA UM US UY
+    UZ VE VI VN WS XK YE ZA ZW`.includes(code): {
       return { firstDay: 0, firstWeekSize: 1 }
     }
     case `AN AT AX BE BG CH CZ DE DK EE ES FI FJ FO FR GB GF GP GR HU IE IS IT LI LT LU MC
@@ -32,6 +32,9 @@ function weekInfo (locale: string): { firstDay: number, firstWeekSize: number } 
     }
     case code === 'MV': {
       return { firstDay: 5, firstWeekSize: 1 }
+    }
+    case code === 'PT': {
+      return { firstDay: 0, firstWeekSize: 4 }
     }
     default: return null
   }
