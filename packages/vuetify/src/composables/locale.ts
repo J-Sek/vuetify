@@ -1,6 +1,7 @@
 // Utilities
 import { computed, inject, provide, ref } from 'vue'
 import { createVuetifyAdapter } from '@/locale/adapters/vuetify'
+import { mergeDeep } from '@/util'
 
 // Types
 import type { InjectionKey, Ref } from 'vue'
@@ -40,11 +41,8 @@ export function createLocale (options?: LocaleOptions & RtlOptions) {
 }
 
 export function useLocale () {
-  const locale = inject(LocaleSymbol)
-
-  if (!locale) throw new Error('[Vuetify] Could not find injected locale instance')
-
-  return locale
+  const locale = inject(LocaleSymbol, null)
+  return mergeDeep(locale ?? {}, createVuetifyAdapter())
 }
 
 export function provideLocale (props: LocaleOptions & RtlProps) {
@@ -149,9 +147,6 @@ export function provideRtl (locale: LocaleInstance, rtl: RtlInstance['rtl'], pro
 }
 
 export function useRtl () {
-  const locale = inject(LocaleSymbol)
-
-  if (!locale) throw new Error('[Vuetify] Could not find injected rtl instance')
-
-  return { isRtl: locale.isRtl, rtlClasses: locale.rtlClasses }
+  const locale = inject(LocaleSymbol, {} as any)
+  return { isRtl: locale.isRtl ?? false, rtlClasses: locale.rtlClasses ?? '' }
 }

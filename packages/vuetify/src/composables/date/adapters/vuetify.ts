@@ -9,7 +9,7 @@ type CustomDateFormat = Intl.DateTimeFormatOptions | ((date: Date, formatString:
 function weekInfo (locale: string): { firstDay: number, firstWeekSize: number } | null {
   // https://simplelocalize.io/data/locales/
   // then `new Intl.Locale(...).getWeekInfo()`
-  const code = locale.slice(-2).toUpperCase()
+  const code = locale?.slice(-2).toUpperCase()
   switch (true) {
     case code === '001': {
       return { firstDay: 1, firstWeekSize: 1 }
