@@ -61,7 +61,7 @@ function createProvideFunction (data: {
       current,
       fallback,
       messages,
-      decimalSeparator: toRef(() => inferDecimalSeparator(i18n.n)),
+      decimalSeparator: toRef(() => props.decimalSeparator ?? inferDecimalSeparator(i18n.n)),
       t: (key: string, ...params: unknown[]) => i18n.t(key, params),
       n: i18n.n,
       provide: createProvideFunction({ current, fallback, messages, useI18n: data.useI18n }),

@@ -112,7 +112,7 @@ export function createVuetifyAdapter (options?: LocaleOptions): LocaleInstance {
     current,
     fallback,
     messages,
-    decimalSeparator: toRef(() => inferDecimalSeparator(current, fallback)),
+    decimalSeparator: toRef(() => options?.decimalSeparator ?? inferDecimalSeparator(current, fallback)),
     t: createTranslateFunction(current, fallback, messages),
     n: createNumberFunction(current, fallback),
     provide: createProvideFunction({ current, fallback, messages }),
