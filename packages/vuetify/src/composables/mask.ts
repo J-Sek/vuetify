@@ -231,5 +231,6 @@ export function useMask (props: MaskProps, inputRef: Ref<HTMLInputElement | unde
     updateRange,
     maskText,
     unmaskText,
+    effectiveMask: mask,
   }
 }

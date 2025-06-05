@@ -1,0 +1,18 @@
+@use '../../styles/tools'
+
+@include tools.layer('components')
+  .v-mask-input-placeholder
+    position: absolute
+    inset: 0
+    z-index: -1
+    padding: inherit
+    pointer-events: none
+    display: flex
+    align-items: center
+    white-space: nowrap
+    white-space-collapse: preserve
+    .v-mask-input-placeholder__input
+      opacity: 0
+    .v-mask-input-placeholder__remaining
+      opacity: .3
+      height: 24px

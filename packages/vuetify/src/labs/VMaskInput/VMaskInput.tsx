@@ -1,3 +1,6 @@
+// Styles
+import './VMaskInput.sass'
+
 // Components
 import { makeVTextFieldProps, VTextField } from '@/components/VTextField/VTextField'
 
@@ -8,7 +11,7 @@ import { useProxiedModel } from '@/composables/proxiedModel'
 
 // Utilities
 import { computed, onMounted, ref } from 'vue'
-import { genericComponent, propsFactory, useRender } from '@/util'
+import { genericComponent, omit, propsFactory, useRender } from '@/util'
 
 // Types
 import type { VTextFieldSlots } from '@/components/VTextField/VTextField'
@@ -32,7 +35,7 @@ export const VMaskInput = genericComponent<VMaskInputSlots>()({
   setup (props, { slots, attrs, emit }) {
     const vTextFieldRef = ref<VTextField>()
 
-    const { maskText, updateRange, unmaskText } = useMask(props, vTextFieldRef)
+    const { maskText, updateRange, unmaskText, effectiveMask } = useMask(props, vTextFieldRef)
     const returnMaskedValue = computed(() => props.mask && props.returnMaskedValue)
 
     const model = useProxiedModel(
@@ -60,6 +63,13 @@ export const VMaskInput = genericComponent<VMaskInputSlots>()({
       },
     )
 
+    const remainingPattern = computed(() => {
+      return effectiveMask.value
+        ? effectiveMask.value.substring((model.value ?? '').length)
+          .replaceAll('#', '_') // maybe a prop?
+        : ''
+    })
+
     onMounted(() => {
       if (props.returnMaskedValue) {
         emit('update:modelValue', model.value)
@@ -76,7 +86,15 @@ export const VMaskInput = genericComponent<VMaskInputSlots>()({
           v-model={ model.value }
           ref={ vTextFieldRef }
         >
-          {{ ...slots }}
+          {{
+            default: slots.default ?? (() => !model.value ? '' : (
+            <div class="v-mask-input-placeholder">
+              <span class="v-mask-input-placeholder__input">{ model.value }</span>
+              <span class="v-mask-input-placeholder__remaining">{ remainingPattern.value }</span>
+            </div>
+            )),
+            ...omit(slots, ['default']),
+          }}
         </VTextField>
       )
     })
