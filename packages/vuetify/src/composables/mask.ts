@@ -96,9 +96,11 @@ export function useMask (props: MaskProps, inputRef: Ref<HTMLInputElement | unde
 
   function maskValidates (mask: string, char: string): boolean {
     if (char == null || !isMask(mask)) return false
+
     const item = tokens.value[mask]
-    if (item.pattern) return item.pattern.test(char)
-    return item.test(char)
+    return item.pattern
+      ? item.pattern.test(char)
+      : item.test(char)
   }
 
   function convert (mask: string, char: string): string {
@@ -131,13 +133,25 @@ export function useMask (props: MaskProps, inputRef: Ref<HTMLInputElement | unde
         if (tchar === mchar) {
           textIndex++
         }
-      } else if (maskValidates(mchar, tchar)) {
-        newText += convert(mchar, tchar)
-        textIndex++
-      } else {
-        break
+        maskIndex++
+        continue
       }
 
+      if (tchar == null) break
+
+      if (maskValidates(mchar, tchar)) {
+        newText += convert(mchar, tchar)
+      } else {
+        while (++textIndex < text.length) {
+          const next = text[textIndex]
+          if (maskValidates(mchar, next)) {
+            newText += convert(mchar, next)
+            break
+          }
+        }
+      }
+
+      textIndex++
       maskIndex++
     }
     return newText

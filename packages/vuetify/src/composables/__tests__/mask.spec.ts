@@ -34,6 +34,18 @@ describe('mask', () => {
   })
 
   it.each([
+    [{ mask: '+## # ###-##-##', modelValue: '123-456-789' }, '+12 3 456-78-9'],
+    [{ mask: '(#) (#)', modelValue: ' 5 - 6 ' }, '(5) (6)'],
+    [{ mask: '###', modelValue: '$ 43 ' }, '43'],
+    [{ mask: '###', modelValue: '($92)' }, '92'],
+    [{ mask: '$####', modelValue: '€92.00' }, '$9200'],
+    [{ mask: '###.##.##', modelValue: '127.xx.99' }, '127.99.'],
+  ])('should extract pasted value', (props, expected) => {
+    const { maskText } = useMask(props as MaskProps, ref(undefined))
+    expect(maskText(props.modelValue)).toEqual(expected)
+  })
+
+  it.each([
     [{ mask: '(#', modelValue: '(5' }, '5'],
     [{ mask: '####', modelValue: '1111' }, '1111'],
     [{ mask: '(###)#', modelValue: '(123)4' }, '1234'],
