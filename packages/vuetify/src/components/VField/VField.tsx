@@ -336,43 +336,44 @@ export const VField = genericComponent<new <T>(
             )}
           </div>
 
-          { (hasClear && (props.focused || isHovered.value)) && (
-            <VExpandXTransition key="clear">
-              <div
-                class="v-field__clearable"
-                v-show={ props.dirty }
-                onMousedown={ (e: MouseEvent) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                }}
-              >
-              <VDefaultsProvider
-                defaults={{
-                  VIcon: {
-                    icon: props.clearIcon,
-                  },
-                }}
-              >
-                { slots.clear
-                  ? slots.clear({
-                    ...slotProps.value,
-                    props: {
-                      onFocus: focus,
-                      onBlur: blur,
-                      onClick: props['onClick:clear'],
-                      tabindex: -1,
+          { hasClear && (
+            <VExpandXTransition key="clear" appear>
+              { props.dirty && (props.focused || isHovered.value || props.persistentClear) && (
+                <div
+                  class="v-field__clearable"
+                  onMousedown={ (e: MouseEvent) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                  }}
+                >
+                <VDefaultsProvider
+                  defaults={{
+                    VIcon: {
+                      icon: props.clearIcon,
                     },
-                  })
-                  : (
-                    <InputIcon
-                      name="clear"
-                      onFocus={ focus }
-                      onBlur={ blur }
-                      tabindex={ -1 }
-                    />
-                  )}
-                </VDefaultsProvider>
-              </div>
+                  }}
+                >
+                  { slots.clear
+                    ? slots.clear({
+                      ...slotProps.value,
+                      props: {
+                        onFocus: focus,
+                        onBlur: blur,
+                        onClick: props['onClick:clear'],
+                        tabindex: -1,
+                      },
+                    })
+                    : (
+                      <InputIcon
+                        name="clear"
+                        onFocus={ focus }
+                        onBlur={ blur }
+                        tabindex={ -1 }
+                      />
+                    )}
+                  </VDefaultsProvider>
+                </div>
+              )}
             </VExpandXTransition>
           )}
 

@@ -224,22 +224,10 @@
 
   .v-field__clearable
     cursor: pointer
-    opacity: 0
     overflow: hidden
     margin-inline: $field-clearable-margin
     transition: $field-transition-timing
     transition-property: opacity, transform, width
-
-    .v-field--focused &,
-    .v-field--persistent-clear &
-      opacity: 1
-
-    @media (hover: hover)
-      .v-field:hover &
-        opacity: 1
-
-    @media (hover: none)
-      opacity: 1
 
   /* endregion */
   /* region LABEL */
