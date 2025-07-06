@@ -112,6 +112,11 @@
       "persistent": "3.6.0"
     }
   },
+  "VOverlay": {
+    "props": {
+      "stick-to-target": "3.9.0"
+    }
+  },
   "VSelect": {
     "props": {
       "listProps": "3.5.0",
