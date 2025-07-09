@@ -1,4 +1,6 @@
 // Utilities
+// eslint-disable-next-line vue/prefer-import-from-vue
+import { isBooleanAttr } from '@vue/shared'
 import {
   camelize,
   capitalize,
@@ -829,9 +831,8 @@ export function camelizeProps<T extends Record<string, unknown>> (props: T | nul
 }
 
 export function onlyDefinedProps (props: Record<string, any>) {
-  const booleanAttributes = ['checked', 'disabled']
   return Object.fromEntries(Object.entries(props)
-    .filter(([key, v]) => booleanAttributes.includes(key) ? !!v : v !== undefined))
+    .filter(([key, v]) => isBooleanAttr(key) ? (!!v || v === '') : v !== undefined))
 }
 
 export type NonEmptyArray<T> = [T, ...T[]]
