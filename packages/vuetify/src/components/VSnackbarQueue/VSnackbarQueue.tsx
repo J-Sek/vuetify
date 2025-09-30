@@ -56,6 +56,7 @@ export const makeVSnackbarQueueProps = propsFactory({
     type: Array as PropType<readonly SnackbarMessage[]>,
     default: () => [],
   },
+  totalVisible: [Number, String],
 
   ...omit(makeVSnackbarProps(), ['modelValue']),
 }, 'VSnackbarQueue')
