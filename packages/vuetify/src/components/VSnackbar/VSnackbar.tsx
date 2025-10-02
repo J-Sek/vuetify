@@ -72,6 +72,8 @@ function useCountdown (milliseconds: () => number) {
 
 export const makeVSnackbarProps = propsFactory({
   multiLine: Boolean,
+  title: String,
+  offset: Number,
   text: String,
   timer: [Boolean, String],
   timeout: {
@@ -87,7 +89,7 @@ export const makeVSnackbarProps = propsFactory({
   ...makeThemeProps(),
   ...omit(makeVOverlayProps({
     transition: 'v-snackbar-transition',
-  }), ['persistent', 'noClickAnimation', 'scrim', 'scrollStrategy', 'stickToTarget']),
+  }), ['persistent', 'noClickAnimation', 'offset', 'scrim', 'scrollStrategy', 'stickToTarget']),
 }, 'VSnackbar')
 
 export const VSnackbar = genericComponent<VSnackbarSlots>()({
@@ -185,7 +187,7 @@ export const VSnackbar = genericComponent<VSnackbarSlots>()({
     })
 
     useRender(() => {
-      const overlayProps = VOverlay.filterProps(props)
+      const overlayProps = omit(VOverlay.filterProps(props), ['offset'])
       const hasContent = !!(slots.default || slots.text || props.text)
 
       return (
@@ -206,6 +208,7 @@ export const VSnackbar = genericComponent<VSnackbarSlots>()({
           style={[
             mainStyles.value,
             props.style,
+            `margin: ${props.offset}px`,
           ]}
           { ...overlayProps }
           v-model={ isActive.value }
@@ -254,6 +257,7 @@ export const VSnackbar = genericComponent<VSnackbarSlots>()({
               role="status"
               aria-live="polite"
             >
+              { props.title ? (<div style="font-weight: bold" key="title">{ props.title }</div>) : '' }
               { slots.text?.() ?? props.text }
 
               { slots.default?.() }
