@@ -1,12 +1,10 @@
-import { aliases } from '@/iconsets/mdi-svg'
-import { mdi } from '@/iconsets/mdi'
-import { fa } from '@/iconsets/fa-svg'
+// import { aliases } from '@/iconsets/mdi-svg'
+import { oi, aliases } from '@/iconsets/obra'
+// import { mdi } from '@/iconsets/mdi'
+// import { fa } from '@/iconsets/fa-svg'
 
 export default {
-  defaultSet: 'mdi',
+  defaultSet: 'oi',
   aliases,
-  sets: {
-    mdi,
-    fa,
-  },
+  sets: { oi },
 }

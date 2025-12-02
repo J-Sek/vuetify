@@ -1,0 +1,136 @@
+/* eslint-disable max-len */
+
+// Utilities
+import {
+  IconAdd,
+  IconSubtract,
+  IconCheck,
+  IconCircleCheckFill,
+  IconCircleInfo,
+  IconClose,
+  IconDelete,
+  IconCircleClose,
+  IconCircleCloseFill,
+  IconChevronUp,
+  IconChevronDown,
+  IconChevronLeft,
+  IconChevronRight,
+  IconWarningTriangle,
+  IconCheckboxOn,
+  IconCheckboxOff,
+  IconSubtractRoundrect,
+  IconArrowUp,
+  IconArrowDown,
+  IconArrowLeft,
+  IconArrowRight,
+  IconFavorite,
+  IconFavoriteFill,
+  IconCloudUpload,
+  IconPalette,
+  IconCommand,
+  IconBackspace,
+  IconMenu,
+  IconPlay,
+  IconPause,
+  IconFullscreenAlt,
+  IconNormalScreen,
+  IconCaretDownFill,
+  IconCircleFill,
+  IconRadioOn,
+  IconRadioOff,
+  IconEdit,
+  IconChevronDoubleLeft,
+  IconChevronDoubleRight,
+  IconCaretUpDownFill,
+  IconAttachment,
+  IconCalendarSelectedDate,
+  IconCaretRight,
+  IconEyedropper,
+  IconEnter,
+  IconVolume1,
+  IconVolume2,
+  IconVolumeCentered,
+  IconVolumeOff,
+} from 'obra-icons-vue'
+import { h, resolveComponent } from 'vue'
+
+// Types
+import type { IconAliases, IconSet } from '@/composables/icons'
+
+const aliases: IconAliases = {
+  collapse: IconChevronUp,
+  complete: IconCheck,
+  cancel: IconCircleCloseFill,
+  close: IconClose,
+  delete: IconDelete, // delete (e.g. v-chip close)
+  clear: IconCircleClose,
+  success: IconCircleCheckFill,
+  info: IconCircleInfo,
+  warning: IconWarningTriangle,
+  error: IconCircleCloseFill,
+  prev: IconChevronLeft,
+  next: IconChevronRight,
+  checkboxOn: IconCheckboxOn,
+  checkboxOff: IconCheckboxOff,
+  checkboxIndeterminate: IconSubtractRoundrect,
+  delimiter: IconCircleFill, // for carousel
+  sortAsc: IconArrowUp,
+  sortDesc: IconArrowDown,
+  expand: IconChevronDown,
+  menu: IconMenu,
+  subgroup: IconCaretDownFill,
+  dropdown: IconCaretDownFill,
+  radioOn: IconRadioOn,
+  radioOff: IconRadioOff,
+  edit: IconEdit,
+  ratingEmpty: IconFavorite,
+  ratingFull: IconFavoriteFill,
+  first: IconChevronDoubleLeft,
+  last: IconChevronDoubleRight,
+  unfold: IconCaretUpDownFill,
+  file: IconAttachment,
+  plus: IconAdd,
+  minus: IconSubtract,
+  calendar: IconCalendarSelectedDate,
+  treeviewCollapse: IconCaretDownFill,
+  treeviewExpand: IconCaretRight,
+  tableGroupCollapse: IconChevronDown,
+  tableGroupExpand: IconChevronRight,
+  eyeDropper: IconEyedropper,
+  upload: IconCloudUpload,
+  color: IconPalette,
+  command: IconCommand,
+  ctrl: 'svg:M19.78,11.78L18.36,13.19L12,6.83L5.64,13.19L4.22,11.78L12,4L19.78,11.78Z',
+  space: 'svg:M3 15H5V19H19V15H21V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V15Z',
+  shift: 'svg:M15 18v-6h2.17L12 6.83L6.83 12H9v6zM12 4l10 10h-5v6H7v-6H2z',
+  alt: 'svg:M3 4h6.11l7.04 14H21v2h-6.12L7.84 6H3zm11 0h7v2h-7z',
+  enter: IconEnter,
+  arrowup: IconArrowUp,
+  arrowdown: IconArrowDown,
+  arrowleft: IconArrowLeft,
+  arrowright: IconArrowRight,
+  backspace: IconBackspace,
+  play: IconPlay,
+  pause: IconPause,
+  fullscreen: IconFullscreenAlt,
+  fullscreenExit: IconNormalScreen,
+  volumeHigh: IconVolume1,
+  volumeMedium: IconVolume2,
+  volumeLow: IconVolumeCentered,
+  volumeOff: IconVolumeOff,
+}
+
+const oi: IconSet = {
+  component: props => {
+    const { icon, tag, ...rest } = props
+    const stringIcon = icon as string
+    return h(tag, rest, [
+      h(resolveComponent('obra-icon'), {
+        key: stringIcon, // TODO: https://github.com/FortAwesome/vue-fontawesome/issues/250
+        icon: stringIcon.startsWith('oi-') ? stringIcon.split(' oi-') : stringIcon,
+      }),
+    ])
+  },
+}
+
+export { aliases, oi }
