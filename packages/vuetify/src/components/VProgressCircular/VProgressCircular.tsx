@@ -12,7 +12,7 @@ import { makeTagProps } from '@/composables/tag'
 import { makeThemeProps, provideTheme } from '@/composables/theme'
 
 // Utilities
-import { computed, ref, toRef, watchEffect } from 'vue'
+import { computed, ref, shallowRef, toRef, watchEffect } from 'vue'
 import { clamp, convertToUnit, genericComponent, PREFERS_REDUCED_MOTION, propsFactory, useRender } from '@/util'
 
 // Types
@@ -38,7 +38,7 @@ export const makeVProgressCircularProps = propsFactory({
 
   ...makeComponentProps(),
   ...makeRevealProps(),
-  ...makeSizeProps(),
+  ...makeSizeProps({ size: 30 }),
   ...makeTagProps({ tag: 'div' }),
   ...makeThemeProps(),
 }, 'VProgressCircular')
@@ -57,6 +57,9 @@ export const VProgressCircular = genericComponent<VProgressCircularSlots>()({
     const CIRCUMFERENCE = 2 * Math.PI * MAGIC_RADIUS_CONSTANT
 
     const root = ref<HTMLElement>()
+    const svgRef = ref<SVGSVGElement>()
+    const overlayRef = ref<SVGCircleElement>()
+    const indeterminateAnimations = shallowRef<Animation[]>([])
 
     const { themeClasses } = provideTheme(props)
     const { sizeClasses, sizeStyles } = useSize(props)
@@ -96,6 +99,57 @@ export const VProgressCircular = genericComponent<VProgressCircularSlots>()({
       resizeRef.value = root.value
     })
 
+    // Indeterminate animations (WAAPI)
+    watchEffect((onCleanup) => {
+      const svg = svgRef.value
+      const overlay = overlayRef.value
+
+      if (!props.indeterminate || !svg || !overlay) {
+        indeterminateAnimations.value = []
+        return
+      }
+
+      const disableShrink = props.indeterminate === 'disable-shrink' || PREFERS_REDUCED_MOTION()
+      const anims: Animation[] = []
+
+      anims.push(svg.animate(
+        [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }],
+        { duration: disableShrink ? 700 : 1400, iterations: Infinity, easing: 'linear', composite: 'add' }
+      ))
+
+      if (!disableShrink) {
+        anims.push(overlay.animate(
+          [{ transform: 'rotate(-90deg)' }, { transform: 'rotate(270deg)' }],
+          { duration: 1400, iterations: Infinity, easing: 'linear' }
+        ))
+
+        anims.push(overlay.animate(
+          [
+            { strokeDasharray: '1, 200', strokeDashoffset: '0px' },
+            { strokeDasharray: '100, 200', strokeDashoffset: '-15px', offset: 0.5 },
+            { strokeDasharray: '100, 200', strokeDashoffset: '-124px' },
+          ],
+          { duration: 1400, iterations: Infinity, easing: 'ease-in-out' }
+        ))
+      }
+
+      anims.forEach(a => a.pause())
+      indeterminateAnimations.value = anims
+
+      onCleanup(() => anims.forEach(a => a.cancel()))
+    })
+
+    // Control playback based on visibility
+    watchEffect(() => {
+      for (const anim of indeterminateAnimations.value) {
+        if (isIntersecting.value) {
+          if (anim.playState !== 'running') anim.play()
+        } else {
+          anim.pause()
+        }
+      }
+    })
+
     useRender(() => (
       <props.tag
         ref={ root }
@@ -127,6 +181,7 @@ export const VProgressCircular = genericComponent<VProgressCircularSlots>()({
         aria-valuenow={ props.indeterminate ? undefined : normalizedValue.value }
       >
         <svg
+          ref={ svgRef }
           style={{
             transform: `rotate(calc(-90deg + ${startAngle.value}deg))`,
           }}
@@ -149,6 +204,7 @@ export const VProgressCircular = genericComponent<VProgressCircularSlots>()({
           />
 
           <circle
+            ref={ overlayRef }
             class="v-progress-circular__overlay"
             fill="transparent"
             cx="50%"

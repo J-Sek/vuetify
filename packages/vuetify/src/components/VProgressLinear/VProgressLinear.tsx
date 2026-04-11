@@ -77,6 +77,8 @@ export const VProgressLinear = genericComponent<VProgressLinearSlots>()({
 
   setup (props, { slots }) {
     const root = ref<HTMLElement>()
+    const indeterminateRef = ref<HTMLElement>()
+    const indeterminateAnimation = shallowRef<Animation>()
 
     const progress = useProxiedModel(props, 'modelValue')
     const { isRtl, rtlClasses } = useRtl()
@@ -141,6 +143,47 @@ export const VProgressLinear = genericComponent<VProgressLinearSlots>()({
 
     watchEffect(() => {
       intersectionRef.value = root.value
+    })
+
+    // Indeterminate animation (WAAPI)
+    watchEffect((onCleanup) => {
+      const el = indeterminateRef.value
+      if (!props.indeterminate || !el) {
+        indeterminateAnimation.value = undefined
+        return
+      }
+
+      const ll = '--v-progress-indeterminate-long-left'
+      const lr = '--v-progress-indeterminate-long-right'
+      const sl = '--v-progress-indeterminate-short-left'
+      const sr = '--v-progress-indeterminate-short-right'
+
+      const keyframes = isReversed.value ? [
+        { [ll]: '107', [lr]: '-90', [sl]: '107', [sr]: '-200' },
+        { [ll]: '107', [lr]: '-90', [sl]: '-8', [sr]: '107', offset: 0.6 },
+        { [ll]: '-35', [lr]: '107', [sl]: '-8', [sr]: '107' },
+      ] : [
+        { [ll]: '-90', [lr]: '107', [sl]: '-200', [sr]: '107' },
+        { [ll]: '-90', [lr]: '107', [sl]: '107', [sr]: '-8', offset: 0.6 },
+        { [ll]: '107', [lr]: '-35', [sl]: '107', [sr]: '-8' },
+      ]
+
+      const anim = el.animate(keyframes, { duration: 2200, iterations: Infinity })
+      anim.pause()
+      indeterminateAnimation.value = anim
+
+      onCleanup(() => anim.cancel())
+    })
+
+    // Control indeterminate playback based on active + visibility
+    watchEffect(() => {
+      const anim = indeterminateAnimation.value
+      if (!anim) return
+      if (props.active && isIntersecting.value) {
+        if (anim.playState !== 'running') anim.play()
+      } else {
+        anim.pause()
+      }
     })
 
     function renderBackgroundBar () {
@@ -252,7 +295,7 @@ export const VProgressLinear = genericComponent<VProgressLinearSlots>()({
               ]}
             />
           ) : (
-            <div class="v-progress-linear__indeterminate">
+            <div ref={ indeterminateRef } class="v-progress-linear__indeterminate">
               { props.variant === 'split' && (
                 <>
                   { renderBackgroundBar() }

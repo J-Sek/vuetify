@@ -2,21 +2,21 @@
 @use './variables' as *
 
 @property --v-progress-indeterminate-long-left
-  syntax: "<percentage>"
+  syntax: "<number>"
   inherits: true
-  initial-value: 0%
+  initial-value: 0
 @property --v-progress-indeterminate-long-right
-  syntax: "<percentage>"
+  syntax: "<number>"
   inherits: true
-  initial-value: 0%
+  initial-value: 0
 @property --v-progress-indeterminate-short-left
-  syntax: "<percentage>"
+  syntax: "<number>"
   inherits: true
-  initial-value: 0%
+  initial-value: 0
 @property --v-progress-indeterminate-short-right
-  syntax: "<percentage>"
+  syntax: "<number>"
   inherits: true
-  initial-value: 0%
+  initial-value: 0
 
 @include tools.layer('components')
   // Block
@@ -88,25 +88,21 @@
     transition-property: width, left, right
 
   .v-progress-linear__indeterminate
-    animation-play-state: paused
-    animation-duration: $progress-linear-indeterminate-animation-duration
-    animation-iteration-count: infinite
-    animation-name: indeterminate-ltr
-
     .long, .short
       bottom: 0
       height: inherit
+      left: 0
       position: absolute
+      right: 0
       top: 0
-      width: auto
+      transform-origin: 0 0
+      will-change: transform
 
     .long
-      left: var(--v-progress-indeterminate-long-left)
-      right: var(--v-progress-indeterminate-long-right)
+      transform: translateX(calc(var(--v-progress-indeterminate-long-left) * 1%)) scaleX(calc((100 - var(--v-progress-indeterminate-long-left) - var(--v-progress-indeterminate-long-right)) / 100))
 
     .short
-      left: var(--v-progress-indeterminate-short-left)
-      right: var(--v-progress-indeterminate-short-right)
+      transform: translateX(calc(var(--v-progress-indeterminate-short-left) * 1%)) scaleX(calc((100 - var(--v-progress-indeterminate-short-left) - var(--v-progress-indeterminate-short-right)) / 100))
 
     > .v-progress-linear__background
       height: 100%
@@ -115,16 +111,16 @@
 
       &:nth-child(1)
         left: 0
-        width: clamp(0%, calc(var(--v-progress-indeterminate-long-left) - var(--v-progress-chunk-gap)), 100%)
+        width: clamp(0%, calc(var(--v-progress-indeterminate-long-left) * 1% - var(--v-progress-chunk-gap)), 100%)
 
       &:nth-child(2)
-        left: clamp(0%, calc(100% - var(--v-progress-indeterminate-long-right) + var(--v-progress-chunk-gap)), 100%)
-        width: clamp(0%, calc(var(--v-progress-indeterminate-short-left) - var(--v-progress-chunk-gap)), 100%)
+        left: clamp(0%, calc(100% - var(--v-progress-indeterminate-long-right) * 1% + var(--v-progress-chunk-gap)), 100%)
+        width: clamp(0%, calc(var(--v-progress-indeterminate-short-left) * 1% - var(--v-progress-chunk-gap)), 100%)
 
       &:nth-child(3)
         right: 0
         left: unset
-        width: clamp(0%, calc(var(--v-progress-indeterminate-short-right) - var(--v-progress-chunk-gap)), 100%)
+        width: clamp(0%, calc(var(--v-progress-indeterminate-short-right) * 1% - var(--v-progress-chunk-gap)), 100%)
 
   .v-progress-linear__stream
     animation: $progress-linear-stream-animation
@@ -146,23 +142,21 @@
       right: 0
 
     .v-progress-linear__indeterminate
-      animation-name: indeterminate-rtl
-
       > .v-progress-linear__background
         &:nth-child(1)
           left: unset
           right: 0
-          width: clamp(0%, calc(var(--v-progress-indeterminate-long-right) - var(--v-progress-chunk-gap)), 100%)
+          width: clamp(0%, calc(var(--v-progress-indeterminate-long-right) * 1% - var(--v-progress-chunk-gap)), 100%)
 
         &:nth-child(2)
           left: unset
-          right: clamp(0%, calc(100% - var(--v-progress-indeterminate-long-left) + var(--v-progress-chunk-gap)), 100%)
-          width: clamp(0%, calc(var(--v-progress-indeterminate-short-right) - var(--v-progress-chunk-gap)), 100%)
+          right: clamp(0%, calc(100% - var(--v-progress-indeterminate-long-left) * 1% + var(--v-progress-chunk-gap)), 100%)
+          width: clamp(0%, calc(var(--v-progress-indeterminate-short-right) * 1% - var(--v-progress-chunk-gap)), 100%)
 
         &:nth-child(3)
           right: unset
           left: 0
-          width: clamp(0%, calc(var(--v-progress-indeterminate-short-left) - var(--v-progress-chunk-gap)), 100%)
+          width: clamp(0%, calc(var(--v-progress-indeterminate-short-left) * 1% - var(--v-progress-chunk-gap)), 100%)
 
     .v-progress-linear__stream
       right: auto
@@ -194,9 +188,6 @@
       background-size: $progress-linear-striped-size
 
   .v-progress-linear--active
-    .v-progress-linear__indeterminate
-      animation-play-state: running
-
     .v-progress-linear__stream
       animation-play-state: running
 
@@ -211,40 +202,6 @@
       border-end-start-radius: 0
 
   // Keyframes
-  @keyframes indeterminate-ltr
-    0%
-      --v-progress-indeterminate-long-left: -90%
-      --v-progress-indeterminate-long-right: 107%
-      --v-progress-indeterminate-short-left: -200%
-      --v-progress-indeterminate-short-right: 107%
-    60%
-      --v-progress-indeterminate-long-left: -90%
-      --v-progress-indeterminate-long-right: 107%
-      --v-progress-indeterminate-short-left: 107%
-      --v-progress-indeterminate-short-right: -8%
-    100%
-      --v-progress-indeterminate-long-left: 107%
-      --v-progress-indeterminate-long-right: -35%
-      --v-progress-indeterminate-short-left: 107%
-      --v-progress-indeterminate-short-right: -8%
-
-  @keyframes indeterminate-rtl
-    0%
-      --v-progress-indeterminate-long-left: 107%
-      --v-progress-indeterminate-long-right: -90%
-      --v-progress-indeterminate-short-left: 107%
-      --v-progress-indeterminate-short-right: -200%
-    60%
-      --v-progress-indeterminate-long-left: 107%
-      --v-progress-indeterminate-long-right: -90%
-      --v-progress-indeterminate-short-left: -8%
-      --v-progress-indeterminate-short-right: 107%
-    100%
-      --v-progress-indeterminate-long-left: -35%
-      --v-progress-indeterminate-long-right: 107%
-      --v-progress-indeterminate-short-left: -8%
-      --v-progress-indeterminate-short-right: 107%
-
   @keyframes stream
     to
       transform: translateX(var(--v-progress-linear-stream-to))
