@@ -304,6 +304,7 @@ export const VDataTableVirtual = genericComponent<new <T extends readonly any[],
     return {
       calculateVisibleItems,
       scrollToIndex,
+      flatItems,
     }
   },
 })

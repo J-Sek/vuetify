@@ -225,6 +225,8 @@ export const VDataTableServer = genericComponent<new <T extends readonly any[], 
         </VTable>
       )
     })
+
+    return { flatItems }
   },
 })
 

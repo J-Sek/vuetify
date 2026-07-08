@@ -182,6 +182,9 @@ export const VDataTable = genericComponent<new <T extends readonly any[], V>(
     })
     useOpenAllGroups(openedGroups, openAll, sortedItems, groupBy, groupKey)
 
+    // Full grouped list for export/scroll use cases; pageBy: 'item' groups per-page, so this can't reuse the paginated groups below.
+    const { flatItems } = useGroupedItems(sortedItems, groupBy, openedGroups, () => !!slots['group-summary'], isGroupOpen, groupKey)
+
     const pageBy = computed(() => {
       if (props.pageBy === 'auto') {
         return props.groupBy.length ? 'group' : 'item'
@@ -356,7 +359,7 @@ export const VDataTable = genericComponent<new <T extends readonly any[], V>(
       )
     })
 
-    return {}
+    return { flatItems }
   },
 })
 

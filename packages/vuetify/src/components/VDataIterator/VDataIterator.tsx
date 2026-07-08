@@ -234,7 +234,7 @@ export const VDataIterator = genericComponent<new <T> (
       </props.tag>
     ))
 
-    return {}
+    return { flatItems }
   },
 })
 
