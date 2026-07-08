@@ -40,5 +40,8 @@
     "update:options": "Emits when pagination related properties (page, itemsPerPage, sortBy, groupBy, search) is updated.",
     "update:page": "Emits when the **page** prop is updated.",
     "update:sortBy": "Emits when the **sortBy** prop is updated."
+  },
+  "exposed": {
+    "flatItems": "The provided items in display order. When grouping is active, group headers and summaries are interleaved; keep entries where `type === 'item'` and read `raw` to get the source records."
   }
 }

@@ -39,6 +39,7 @@
     "update:sortBy": "Emits when the **sortBy** prop is updated."
   },
   "exposed": {
-    "calculateVisibleItems": "Trigger updating the currently rendered items based on scroll position."
+    "calculateVisibleItems": "Trigger updating the currently rendered items based on scroll position.",
+    "flatItems": "The filtered and sorted items before pagination. When grouping is active, group headers and summaries are interleaved; keep entries where `type === 'item'` and read `raw` to get the source records."
   }
 }
