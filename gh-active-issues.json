@@ -1,12 +1,120 @@
 [
   {
+    "assignees": [],
+    "comments": 1,
+    "createdAt": "2026-08-14T11:11:03Z",
+    "labels": [
+      "C: VMenu",
+      "S: triage",
+      "audit tools"
+    ],
+    "number": 23119,
+    "title": "[Bug Report][4.1.9] a11y: VMenu and VSelect/VAutocomplete/VCombobox reference an aria-controls/aria-owns id absent from the document while closed",
+    "milestone": ""
+  },
+  {
+    "assignees": [],
+    "comments": 2,
+    "createdAt": "2026-08-13T08:11:44Z",
+    "labels": [
+      "T: feature",
+      "C: VSelect"
+    ],
+    "number": 23110,
+    "title": "[Feature Request] VSelect with \"Select all\" checkbox",
+    "milestone": ""
+  },
+  {
+    "assignees": [],
+    "comments": 1,
+    "createdAt": "2026-08-12T12:35:42Z",
+    "labels": [
+      "C: VChip",
+      "S: triage",
+      "audit tools"
+    ],
+    "number": 23103,
+    "title": "[Bug Report][4.1.8] VChip renders divs inside its own span root, producing invalid HTML",
+    "milestone": ""
+  },
+  {
+    "assignees": [],
+    "comments": 3,
+    "createdAt": "2026-08-10T14:47:05Z",
+    "labels": [
+      "T: bug",
+      "P: low",
+      "C: VBadge",
+      "audit tools"
+    ],
+    "number": 23093,
+    "title": "[Bug Report][4.1.8] VBadge renders divs inside VBtn's span, producing invalid HTML",
+    "milestone": ""
+  },
+  {
+    "assignees": [],
+    "comments": 0,
+    "createdAt": "2026-08-10T11:50:29Z",
+    "labels": [
+      "T: bug",
+      "S: maybe",
+      "C: VDataTable"
+    ],
+    "number": 23091,
+    "title": "[Bug Report][4.1.8] VDataTable: Striping does not work when using expansion with expanded-slot",
+    "milestone": "v5.0.0 (Tardis)"
+  },
+  {
+    "assignees": [
+      "J-Sek"
+    ],
+    "comments": 1,
+    "createdAt": "2026-07-31T05:39:59Z",
+    "labels": [
+      "T: enhancement",
+      "C: VDateInput"
+    ],
+    "number": 23051,
+    "title": "[Feature Request] VDateInput should auto-fill separators while typing",
+    "milestone": "v4.2.0"
+  },
+  {
+    "assignees": [],
+    "comments": 0,
+    "createdAt": "2026-07-30T07:52:46Z",
+    "labels": [
+      "T: bug",
+      "C: VDataTable",
+      "C: VPagination",
+      "C: VProgressLinear",
+      "C: VProgressCircular",
+      "C: VSkeletonLoader"
+    ],
+    "number": 23045,
+    "title": "[Bug Report][4.1.6] border-opacity should not be used for v-progress-linear",
+    "milestone": "v3.13.x"
+  },
+  {
+    "assignees": [],
+    "comments": 0,
+    "createdAt": "2026-07-29T09:07:37Z",
+    "labels": [
+      "T: enhancement",
+      "C: VMonthPicker"
+    ],
+    "number": 23044,
+    "title": "[Feature Request] Support scrolling/touch interactions in VMonthPicker",
+    "milestone": ""
+  },
+  {
     "assignees": [
       "johnleider"
     ],
-    "comments": 0,
+    "comments": 1,
     "createdAt": "2026-07-27T20:00:05Z",
     "labels": [
-      "T: bug"
+      "T: bug",
+      "E: display"
     ],
     "number": 23042,
     "title": "[Bug Report] display.mobile disagrees with the mobileBreakpoint prop path (next only)",
@@ -27,31 +135,17 @@
     "milestone": "v4.x.x"
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 4,
-    "createdAt": "2026-07-21T14:55:09Z",
-    "labels": [
-      "T: enhancement",
-      "C: VCombobox",
-      "C: VAutocomplete"
-    ],
-    "number": 23021,
-    "title": "[Feature Request] Please bring back v-menu closeOnClick",
-    "milestone": "v4.2.0"
-  },
-  {
     "assignees": [],
     "comments": 0,
     "createdAt": "2026-07-18T09:26:30Z",
     "labels": [
       "T: enhancement",
-      "C: VNavigationDrawer"
+      "C: VNavigationDrawer",
+      "has workaround"
     ],
     "number": 23017,
     "title": "[Feature Request] Scrim support for expand-on-hover rail drawers",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -80,18 +174,6 @@
   },
   {
     "assignees": [],
-    "comments": 1,
-    "createdAt": "2026-07-01T21:03:30Z",
-    "labels": [
-      "layer 8 issue",
-      "C: VOtpInput"
-    ],
-    "number": 22980,
-    "title": "[Bug Report][4.1.2] VOtpInput doesn't respect to dir attribute",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 0,
     "createdAt": "2026-07-01T13:26:39Z",
     "labels": [
@@ -101,20 +183,7 @@
     ],
     "number": 22977,
     "title": "[Bug Report][4.1.2] Accessibility: VDateInput input element have role but not required aria attributes (following #22017)",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2026-06-27T19:18:41Z",
-    "labels": [
-      "T: enhancement",
-      "P: low",
-      "C: VMain"
-    ],
-    "number": 22948,
-    "title": "[Feature Request] Prop to disable transition on VMain",
-    "milestone": ""
+    "milestone": "v4.x.x"
   },
   {
     "assignees": [],
@@ -131,26 +200,9 @@
   },
   {
     "assignees": [
-      "J-Sek"
-    ],
-    "comments": 2,
-    "createdAt": "2026-06-17T13:00:45Z",
-    "labels": [
-      "T: enhancement",
-      "P: low",
-      "C: VSelect",
-      "C: VCombobox",
-      "C: VAutocomplete"
-    ],
-    "number": 22934,
-    "title": "[Feature Request] [VAutocomplete / VCombobox] Focus does not open menu automatically open menu",
-    "milestone": "v4.2.0"
-  },
-  {
-    "assignees": [
       "ascott18"
     ],
-    "comments": 0,
+    "comments": 2,
     "createdAt": "2026-06-15T17:13:11Z",
     "labels": [
       "T: enhancement",
@@ -158,7 +210,7 @@
       "C: VMonthPicker"
     ],
     "number": 22928,
-    "title": "[Feature Request] Support scrolling/touch interactions in VDatePicker",
+    "title": "[Feature Request] VDatePicker support swipe to move between months",
     "milestone": "v4.2.0"
   },
   {
@@ -225,7 +277,7 @@
     ],
     "number": 22893,
     "title": "[Feature Request] Add mouse wheel gesture support for navigation in v-carousel / v-window",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -240,19 +292,6 @@
   },
   {
     "assignees": [],
-    "comments": 3,
-    "createdAt": "2026-05-21T12:14:21Z",
-    "labels": [
-      "T: bug",
-      "has workaround",
-      "C: VAvatar"
-    ],
-    "number": 22868,
-    "title": "[Bug Report][4.0.7] VAvatar with tonal variant has the wrong bg color border-radius",
-    "milestone": "v4.2.0"
-  },
-  {
-    "assignees": [],
     "comments": 0,
     "createdAt": "2026-05-21T10:21:12Z",
     "labels": [
@@ -261,7 +300,7 @@
     ],
     "number": 22867,
     "title": "[Feature Request] Data Table Search strategies to exclude non searched item",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -313,21 +352,6 @@
     "number": 22808,
     "title": "[Bug Report][3.12.5] [Bug Report][3.12.5] VDateInput fires @update:model-value twice (pick + stale blur duplicate)",
     "milestone": ""
-  },
-  {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 2,
-    "createdAt": "2026-03-27T11:27:59Z",
-    "labels": [
-      "T: bug",
-      "a11y",
-      "C: VAutocomplete"
-    ],
-    "number": 22770,
-    "title": "[Bug Report][4.0.4] VAutocomplete keyboard navigation broken with many items",
-    "milestone": "v4.2.0"
   },
   {
     "assignees": [],
@@ -451,7 +475,7 @@
     ],
     "number": 22647,
     "title": "[Feature Request] v-data-table-virtual: Expose scroll container element or an @scroll-end event for infinite scroll use cases",
-    "milestone": ""
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -463,7 +487,7 @@
     ],
     "number": 22641,
     "title": "[Feature Request] VOverlay: Support connected locationStrategy without flipping origin alignment",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -514,7 +538,7 @@
     ],
     "number": 22587,
     "title": "[Bug Report][3.11.8] VTreeview does not show indent lines when using `prepend-gap`",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -563,7 +587,7 @@
       "performance"
     ],
     "number": 22546,
-    "title": "[Bug Report][3.11.7] Performance issue with v-data-table when using multiple <template #item> slots \u2013 high latency on data/context change",
+    "title": "[Bug Report][3.11.7] Performance issue with v-data-table when using multiple <template #item> slots – high latency on data/context change",
     "milestone": ""
   },
   {
@@ -627,7 +651,7 @@
     ],
     "number": 22516,
     "title": "[Bug Report][3.11.6] Calendar outside days missing borders when calendar has an event",
-    "milestone": ""
+    "milestone": "v3.13.x"
   },
   {
     "assignees": [],
@@ -654,22 +678,6 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 4,
-    "createdAt": "2025-12-15T02:35:57Z",
-    "labels": [
-      "T: enhancement",
-      "C: VProgressLinear",
-      "has workaround",
-      "C: VProgressCircular"
-    ],
-    "number": 22442,
-    "title": "[Feature Request] Add a prop that can disable transition in progress components",
-    "milestone": "v4.x.x"
-  },
-  {
     "assignees": [],
     "comments": 2,
     "createdAt": "2025-12-12T20:49:02Z",
@@ -681,9 +689,7 @@
     "milestone": "v5.0.0 (Tardis)"
   },
   {
-    "assignees": [
-      "ikushum"
-    ],
+    "assignees": [],
     "comments": 2,
     "createdAt": "2025-12-10T11:04:09Z",
     "labels": [
@@ -692,7 +698,7 @@
     ],
     "number": 22428,
     "title": "[Feature Request] VDatePicker add add click:date and dblclick:date events",
-    "milestone": ""
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -712,26 +718,12 @@
     "createdAt": "2025-12-09T12:46:11Z",
     "labels": [
       "T: bug",
-      "C: VMenu",
-      "has workaround"
+      "has workaround",
+      "C: VOverlay"
     ],
     "number": 22425,
     "title": "[Bug Report][3.11.2] VOverlay contained inside VMenu content disables menu \"click outside\" feature",
     "milestone": ""
-  },
-  {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 1,
-    "createdAt": "2025-12-02T15:19:35Z",
-    "labels": [
-      "T: bug",
-      "C: VTreeview"
-    ],
-    "number": 22392,
-    "title": "[Bug Report][3.11.1] VTreeview with `open-all`: mutating an item causes all items to open again",
-    "milestone": "v4.2.0"
   },
   {
     "assignees": [],
@@ -805,7 +797,7 @@
     ],
     "number": 22351,
     "title": "[Feature Request] A Checkbox Group component",
-    "milestone": "v4.2.0"
+    "milestone": ""
   },
   {
     "assignees": [],
@@ -832,20 +824,6 @@
     ],
     "number": 22299,
     "title": "[Bug Report][3.10.9] VSlider thumb-label gets clipped/cut off by parent container boundaries",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-11-06T15:33:01Z",
-    "labels": [
-      "T: enhancement",
-      "P: low",
-      "C: VTooltip",
-      "has workaround"
-    ],
-    "number": 22297,
-    "title": "[Bug Report][3.10.9] VTooltip Interactive Scroll",
     "milestone": ""
   },
   {
@@ -888,18 +866,6 @@
   },
   {
     "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-10-29T15:38:22Z",
-    "labels": [
-      "T: bug",
-      "C: VMenu"
-    ],
-    "number": 22264,
-    "title": "[Bug Report][3.10.7] v-menu doesn't close when :close-on-content-click=\"false\" and click inside other v-select outside",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 3,
     "createdAt": "2025-10-07T09:53:41Z",
     "labels": [
@@ -926,31 +892,6 @@
   },
   {
     "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-10-04T20:50:12Z",
-    "labels": [
-      "T: enhancement",
-      "P: low",
-      "C: VTextField"
-    ],
-    "number": 22154,
-    "title": "[Bug Report][3.10.4] Click on label - sets cursor position on start of VTextField (inconsistency)",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-10-03T13:05:12Z",
-    "labels": [
-      "T: feature",
-      "C: VColorPicker"
-    ],
-    "number": 22151,
-    "title": "[Feature Request] vColorPicker clearable",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 2,
     "createdAt": "2025-10-02T15:44:33Z",
     "labels": [
@@ -962,20 +903,6 @@
     ],
     "number": 22147,
     "title": "[Bug Report][3.10.4] VTimelineItem with v-intersect directive has IntersectionObserver root as null in VTimeline",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-09-29T09:46:51Z",
-    "labels": [
-      "T: enhancement",
-      "invalid",
-      "C: VMenu",
-      "has workaround"
-    ],
-    "number": 22128,
-    "title": "[Documentation] v-menu property max-width can not support precent input",
     "milestone": ""
   },
   {
@@ -994,18 +921,6 @@
   },
   {
     "assignees": [],
-    "comments": 4,
-    "createdAt": "2025-09-26T13:01:19Z",
-    "labels": [
-      "T: bug",
-      "C: VOverlay"
-    ],
-    "number": 22124,
-    "title": "[Bug Report][3.10.3] V-Overlay in MobileDevices with Mode \"as DesktopWindow\" is positioned incorrectly",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 2,
     "createdAt": "2025-09-26T06:53:41Z",
     "labels": [
@@ -1016,18 +931,6 @@
     ],
     "number": 22123,
     "title": "[Bug Report][3.8.5] VAutocomplete with hide-details=\"auto\" does not update menu position when validation error state changes",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 2,
-    "createdAt": "2025-09-24T14:19:34Z",
-    "labels": [
-      "T: bug",
-      "E: theme"
-    ],
-    "number": 22119,
-    "title": "[Bug Report][3.10.3] Topic switching scrollbar theme not following switching issue",
     "milestone": ""
   },
   {
@@ -1047,9 +950,7 @@
     "milestone": "v4.x.x"
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
+    "assignees": [],
     "comments": 4,
     "createdAt": "2025-09-17T09:57:31Z",
     "labels": [
@@ -1058,7 +959,7 @@
     ],
     "number": 22076,
     "title": "[Feature Request] Add `VSplitButton` Component",
-    "milestone": "v4.2.0"
+    "milestone": ""
   },
   {
     "assignees": [
@@ -1082,13 +983,15 @@
     "comments": 4,
     "createdAt": "2025-09-13T09:03:09Z",
     "labels": [
+      "help wanted",
       "T: feature",
       "P: high",
+      "S: maybe",
       "C: VTextField"
     ],
     "number": 22053,
     "title": "[Feature Request] Support Adjacent Labels on VField through label-variant",
-    "milestone": "v4.x.x"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -1101,21 +1004,6 @@
     "number": 22036,
     "title": "[Documentation] Docs for VInput, VField, and custom inputs in general are very lacking",
     "milestone": ""
-  },
-  {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 1,
-    "createdAt": "2025-09-09T10:45:24Z",
-    "labels": [
-      "T: bug",
-      "good first issue",
-      "C: VTreeview"
-    ],
-    "number": 22035,
-    "title": "[Bug Report][3.9.7] VTreeview won't automatically expand searched items' parents",
-    "milestone": "v4.2.0"
   },
   {
     "assignees": [],
@@ -1151,6 +1039,7 @@
     "createdAt": "2025-08-28T14:50:10Z",
     "labels": [
       "T: bug",
+      "P: low",
       "C: VCombobox"
     ],
     "number": 21972,
@@ -1231,20 +1120,6 @@
   },
   {
     "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-08-11T12:24:15Z",
-    "labels": [
-      "T: bug",
-      "help wanted",
-      "platform specific",
-      "C: VToolbar"
-    ],
-    "number": 21905,
-    "title": "[Bug Report][3.9.4] V-Toolbar button tabbing and keyboard focus broken on Safari",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 3,
     "createdAt": "2025-08-07T10:01:00Z",
     "labels": [
@@ -1252,20 +1127,7 @@
       "C: VTreeview"
     ],
     "number": 21891,
-    "title": "[Bug Report][3.9.3] VTreeview\u4e2ditems[number].props.class not apply to parent item",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-08-06T08:39:32Z",
-    "labels": [
-      "T: bug",
-      "has workaround",
-      "C: VChipGroup"
-    ],
-    "number": 21888,
-    "title": "[Bug Report][3.9.4] chipgroup in window, slide chips cause toggle window item on mobile",
+    "title": "[Bug Report][3.9.3] VTreeview中items[number].props.class not apply to parent item",
     "milestone": ""
   },
   {
@@ -1293,18 +1155,6 @@
     ],
     "number": 21885,
     "title": "[Feature Request] Add aria-disabled to disabled hours/minutes in time picker",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-08-05T14:11:52Z",
-    "labels": [
-      "T: bug",
-      "C: VList"
-    ],
-    "number": 21883,
-    "title": "[Bug Report][3.9.0] List items are not interactive in classic mode if they are disabled on mount.",
     "milestone": ""
   },
   {
@@ -1347,43 +1197,6 @@
   },
   {
     "assignees": [],
-    "comments": 2,
-    "createdAt": "2025-07-30T08:52:14Z",
-    "labels": [
-      "T: enhancement",
-      "S: maybe",
-      "C: VDataTable"
-    ],
-    "number": 21855,
-    "title": "[Feature Request] Add a slot to <v-data-table> to customize items appearance when mobile breakpoint is met",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 4,
-    "createdAt": "2025-07-30T08:51:16Z",
-    "labels": [
-      "T: bug",
-      "C: VSelect"
-    ],
-    "number": 21854,
-    "title": "[Bug Report][3.9.3] v-select inside v-navigation-drawer / v-expansion-panel jumps when opened",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-07-29T22:20:31Z",
-    "labels": [
-      "T: enhancement",
-      "C: VCombobox"
-    ],
-    "number": 21851,
-    "title": "[Feature Request] VCombobox \u2014 textarea support for preserving line breaks when using delimiters",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 1,
     "createdAt": "2025-07-29T05:28:15Z",
     "labels": [
@@ -1405,19 +1218,6 @@
     ],
     "number": 21811,
     "title": "[Feature Request] Allow nested \"dialogs\" to be closed with esc key in correct order by exporting globalStack",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 4,
-    "createdAt": "2025-07-23T11:24:26Z",
-    "labels": [
-      "T: bug",
-      "C: VChip",
-      "C: VSlideGroup"
-    ],
-    "number": 21806,
-    "title": "[Bug Report][3.9.2] Chips are not closing properly when content does not fit in slider",
     "milestone": ""
   },
   {
@@ -1456,20 +1256,6 @@
     ],
     "number": 21766,
     "title": "[Feature Request] [VNumberInput] support scientfic notation",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-07-16T06:38:17Z",
-    "labels": [
-      "T: bug",
-      "C: VTextField",
-      "C: VMenu",
-      "has workaround"
-    ],
-    "number": 21765,
-    "title": "[Bug Report][3.8.6] VMenu with VTextField inside it doesn't close when clicked on VAutocomplete component available at same level of VMenu",
     "milestone": ""
   },
   {
@@ -1539,19 +1325,6 @@
     "milestone": ""
   },
   {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-07-04T12:09:53Z",
-    "labels": [
-      "T: bug",
-      "help wanted",
-      "E: defaults"
-    ],
-    "number": 21699,
-    "title": "[Bug Report][3.8.12] Global configuration - contextual defaults for nested components - (VSelect > VChip > clearable)",
-    "milestone": ""
-  },
-  {
     "assignees": [
       "KaelWD"
     ],
@@ -1602,19 +1375,6 @@
     ],
     "number": 21578,
     "title": "[Feature Request] Wrapper component pattern impossible: please export props/emits typings",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 3,
-    "createdAt": "2025-06-13T13:51:08Z",
-    "labels": [
-      "T: feature",
-      "C: VFileUpload",
-      "E: rules"
-    ],
-    "number": 21568,
-    "title": "[Feature Request] VFileUpload: Add props rules",
     "milestone": ""
   },
   {
@@ -1694,21 +1454,6 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 1,
-    "createdAt": "2025-05-27T11:06:18Z",
-    "labels": [
-      "T: bug",
-      "C: VSelect",
-      "C: VDataTable"
-    ],
-    "number": 21490,
-    "title": "[Bug Report][3.8.7] VDataTable VSelect's have hardcoded variants, custom styling is difficult",
-    "milestone": "v4.x.x"
-  },
-  {
     "assignees": [],
     "comments": 2,
     "createdAt": "2025-05-26T14:36:13Z",
@@ -1753,6 +1498,7 @@
     "comments": 2,
     "createdAt": "2025-05-18T01:24:29Z",
     "labels": [
+      "help wanted",
       "T: feature",
       "C: VSelect",
       "typescript"
@@ -1771,19 +1517,6 @@
     ],
     "number": 21426,
     "title": "[Bug Report][3.8.5] v-timeline-item does not render bottom connector line when nested in another v-timeline and it is the last item",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-05-15T15:08:53Z",
-    "labels": [
-      "T: bug",
-      "help wanted",
-      "E: defaults"
-    ],
-    "number": 21420,
-    "title": "[Bug Report][3.8.4] v-stepper-actions do not respect v-btn defaults",
     "milestone": ""
   },
   {
@@ -1841,17 +1574,6 @@
   {
     "assignees": [],
     "comments": 1,
-    "createdAt": "2025-05-05T17:03:18Z",
-    "labels": [
-      "T: feature"
-    ],
-    "number": 21371,
-    "title": "[Feature Request] Trim globally input fields",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
     "createdAt": "2025-05-05T09:54:59Z",
     "labels": [
       "Task"
@@ -1861,9 +1583,7 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "jcjp"
-    ],
+    "assignees": [],
     "comments": 4,
     "createdAt": "2025-04-30T01:54:25Z",
     "labels": [
@@ -1872,7 +1592,7 @@
     ],
     "number": 21340,
     "title": "[Bug Report][3.6.14] VSlideGroup dynamic item count",
-    "milestone": ""
+    "milestone": "v4.x.x"
   },
   {
     "assignees": [],
@@ -1884,7 +1604,7 @@
     ],
     "number": 21331,
     "title": "[Feature Request] [VDataTable] expose the sorted list",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -1912,21 +1632,6 @@
   },
   {
     "assignees": [],
-    "comments": 1,
-    "createdAt": "2025-04-17T07:49:04Z",
-    "labels": [
-      "T: bug",
-      "C: VSelect",
-      "C: VCombobox",
-      "C: VAutocomplete",
-      "has workaround"
-    ],
-    "number": 21279,
-    "title": "[Bug Report][3.8.1] Hard to change chip size within any dropdown component",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 14,
     "createdAt": "2025-04-15T12:32:29Z",
     "labels": [
@@ -1935,18 +1640,6 @@
     ],
     "number": 21269,
     "title": "[Feature Request] V-Select: Auto hide selection that does not fit",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 2,
-    "createdAt": "2025-04-11T20:49:49Z",
-    "labels": [
-      "T: feature",
-      "C: VSlideGroup"
-    ],
-    "number": 21250,
-    "title": "[Feature Request] VSlideGroup Expose scrollToPosition",
     "milestone": ""
   },
   {
@@ -2038,17 +1731,6 @@
   },
   {
     "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-03-28T12:51:51Z",
-    "labels": [
-      "T: feature"
-    ],
-    "number": 21177,
-    "title": "[Feature Request] Content-Security-Policy : Trusted Types",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 1,
     "createdAt": "2025-03-28T10:27:20Z",
     "labels": [
@@ -2058,18 +1740,6 @@
     ],
     "number": 21175,
     "title": "[Bug Report][3.8.0-beta.0] Height of a skeleton loader can't be adjusted properly",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-03-24T19:28:17Z",
-    "labels": [
-      "T: feature",
-      "C: VDataTableServer"
-    ],
-    "number": 21148,
-    "title": "[Feature Request] VDataTableServer: Allow undefined `items-length`",
     "milestone": ""
   },
   {
@@ -2097,18 +1767,6 @@
     ],
     "number": 21127,
     "title": "[Feature Request] VFileUpload : support rules attribute like VFileInput",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-03-18T14:32:31Z",
-    "labels": [
-      "T: enhancement",
-      "C: VDataTable"
-    ],
-    "number": 21122,
-    "title": "[Feature Request] VDataTable Group Ungrouped Values",
     "milestone": ""
   },
   {
@@ -2160,7 +1818,7 @@
     ],
     "number": 21034,
     "title": "[Feature Request] Add loading state to `v-breadcrumbs` items",
-    "milestone": ""
+    "milestone": "v4.x.x"
   },
   {
     "assignees": [],
@@ -2172,18 +1830,6 @@
     ],
     "number": 21013,
     "title": "[Bug Report][3.7.13] VDataTableVirtual: Ui breaks when headers with children exceed 99 entries. (regardless of the amount of children)",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2025-02-03T22:38:38Z",
-    "labels": [
-      "T: feature",
-      "C: VMenu"
-    ],
-    "number": 20957,
-    "title": "[Feature Request] Support VMenu arrow key navigation when in shadow root",
     "milestone": ""
   },
   {
@@ -2240,7 +1886,7 @@
     ],
     "number": 20886,
     "title": "[Feature Request] Slot `placeholder` for `VTextarea`",
-    "milestone": "v4.x.x"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [
@@ -2300,18 +1946,6 @@
   },
   {
     "assignees": [],
-    "comments": 2,
-    "createdAt": "2024-12-27T08:22:04Z",
-    "labels": [
-      "T: feature",
-      "C: VImg"
-    ],
-    "number": 20804,
-    "title": "[Feature Request] Set VImg src by breakpoint",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 1,
     "createdAt": "2024-12-19T14:19:36Z",
     "labels": [
@@ -2338,29 +1972,15 @@
   },
   {
     "assignees": [],
-    "comments": 0,
+    "comments": 1,
     "createdAt": "2024-12-17T20:10:36Z",
     "labels": [
       "T: bug",
-      "C: VTooltip"
+      "C: VTooltip",
+      "has workaround"
     ],
     "number": 20786,
     "title": "[Bug Report][3.7.5] Tooltips is not working in VStepperVertical title slot",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "ikushum"
-    ],
-    "comments": 1,
-    "createdAt": "2024-12-17T17:38:25Z",
-    "labels": [
-      "T: feature",
-      "S: needs more information",
-      "C: VTimePicker"
-    ],
-    "number": 20784,
-    "title": "[Feature Request] Add Click Event to Time Picker Hours, Minutes, and Period",
     "milestone": ""
   },
   {
@@ -2441,18 +2061,6 @@
   },
   {
     "assignees": [],
-    "comments": 3,
-    "createdAt": "2024-11-05T00:01:20Z",
-    "labels": [
-      "T: feature",
-      "typescript"
-    ],
-    "number": 20670,
-    "title": "[Feature Request] Expose type definitions for `vuetify/lib/util/colorUtils.mjs`",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 1,
     "createdAt": "2024-11-04T10:41:49Z",
     "labels": [
@@ -2524,37 +2132,8 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 2,
-    "createdAt": "2024-10-17T14:30:50Z",
-    "labels": [
-      "T: feature",
-      "C: VSelect",
-      "C: VCombobox",
-      "C: VAutocomplete"
-    ],
-    "number": 20590,
-    "title": "[Bug Report][3.7.2] Autocomplete > menu-props > closeOnContentClick",
-    "milestone": "v4.2.0"
-  },
-  {
     "assignees": [],
-    "comments": 1,
-    "createdAt": "2024-10-14T01:35:53Z",
-    "labels": [
-      "T: feature",
-      "good first issue",
-      "C: New Component"
-    ],
-    "number": 20576,
-    "title": "[Feature Request] Add Drag and Drop Visual Feedback to `v-file-input` Component.",
-    "milestone": "v4.2.0"
-  },
-  {
-    "assignees": [],
-    "comments": 2,
+    "comments": 4,
     "createdAt": "2024-10-08T17:52:24Z",
     "labels": [
       "T: bug",
@@ -2576,7 +2155,7 @@
     ],
     "number": 20546,
     "title": "[Feature Request] closable-chips for VFileInput",
-    "milestone": ""
+    "milestone": "v4.x.x"
   },
   {
     "assignees": [],
@@ -2629,21 +2208,6 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "ikushum"
-    ],
-    "comments": 7,
-    "createdAt": "2024-09-12T16:50:29Z",
-    "labels": [
-      "T: bug",
-      "C: VDialog",
-      "C: VMenu"
-    ],
-    "number": 20468,
-    "title": "[Bug Report][3.7.4] - VMenu closes everything when clicked inside a dialog opened from another VMenu",
-    "milestone": "v3.13.x"
-  },
-  {
     "assignees": [],
     "comments": 8,
     "createdAt": "2024-09-10T20:12:01Z",
@@ -2670,17 +2234,6 @@
   {
     "assignees": [],
     "comments": 2,
-    "createdAt": "2024-09-02T00:22:19Z",
-    "labels": [
-      "T: enhancement"
-    ],
-    "number": 20412,
-    "title": "[Feature Request] VListItem and VBtn support to close the background color when the item is active",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 2,
     "createdAt": "2024-09-01T10:24:33Z",
     "labels": [
       "T: enhancement",
@@ -2689,7 +2242,7 @@
     ],
     "number": 20409,
     "title": "[Feature Request] Add duration Prop to Automatically Dismiss v-alert",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -2705,9 +2258,7 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
+    "assignees": [],
     "comments": 6,
     "createdAt": "2024-08-26T14:52:25Z",
     "labels": [
@@ -2875,24 +2426,8 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "Yanis-Riani"
-    ],
-    "comments": 4,
-    "createdAt": "2024-06-12T13:24:42Z",
-    "labels": [
-      "T: bug",
-      "help wanted",
-      "S: maybe",
-      "C: VTextField"
-    ],
-    "number": 19998,
-    "title": "[Bug Report][3.6.9] V-input with counter and hide-details='auto' Fails to Fully Hide Details",
-    "milestone": "v3.13.x"
-  },
-  {
     "assignees": [],
-    "comments": 3,
+    "comments": 4,
     "createdAt": "2024-06-07T09:58:16Z",
     "labels": [
       "T: bug",
@@ -2918,31 +2453,6 @@
     "number": 19919,
     "title": "[Bug Report][3.6.8] VTreeview slow performance on expand",
     "milestone": "v4.x.x"
-  },
-  {
-    "assignees": [],
-    "comments": 3,
-    "createdAt": "2024-05-27T11:58:54Z",
-    "labels": [
-      "T: bug",
-      "C: VInfiniteScroll"
-    ],
-    "number": 19909,
-    "title": "[Bug Report][3.6.7] Infinite-Scroll load-event not fired after reseting Filter",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 2,
-    "createdAt": "2024-05-19T18:24:34Z",
-    "labels": [
-      "T: feature",
-      "good first issue",
-      "C: VFileInput"
-    ],
-    "number": 19837,
-    "title": "[Feature Request] placeholder in v-file-input",
-    "milestone": ""
   },
   {
     "assignees": [],
@@ -3055,9 +2565,7 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
+    "assignees": [],
     "comments": 4,
     "createdAt": "2024-03-26T15:44:14Z",
     "labels": [
@@ -3068,30 +2576,6 @@
     "number": 19477,
     "title": "[Bug Report][3.5.11] Content behind v-navigation-drawer scrolls",
     "milestone": "v3.13.x"
-  },
-  {
-    "assignees": [],
-    "comments": 2,
-    "createdAt": "2024-03-22T20:36:22Z",
-    "labels": [
-      "T: enhancement",
-      "C: VDataFooter"
-    ],
-    "number": 19452,
-    "title": "[Feature Request] Allow disabling pagination through v-data-table-footer props",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2024-03-18T20:27:26Z",
-    "labels": [
-      "T: enhancement",
-      "C: VDatePicker"
-    ],
-    "number": 19428,
-    "title": "[Bug Report][3.5.9] `v-date-picker` range doesn't match Material Design",
-    "milestone": ""
   },
   {
     "assignees": [
@@ -3114,11 +2598,12 @@
     "comments": 2,
     "createdAt": "2024-03-01T22:26:40Z",
     "labels": [
-      "T: feature"
+      "T: feature",
+      "framework"
     ],
     "number": 19315,
-    "title": "[Feature Request] Expose composables like useLocation()",
-    "milestone": ""
+    "title": "[Feature Request] Expose internal composables and utilities",
+    "milestone": "v5.0.0 (Tardis)"
   },
   {
     "assignees": [],
@@ -3127,22 +2612,11 @@
     "labels": [
       "T: bug",
       "C: VTooltip",
+      "has workaround",
       "C: VOverlay"
     ],
     "number": 19311,
-    "title": "[Bug Report][3.5.6] VTooltip with target parent does not work for VButton",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 1,
-    "createdAt": "2024-02-26T09:18:18Z",
-    "labels": [
-      "T: feature",
-      "C: VField"
-    ],
-    "number": 19277,
-    "title": "Change color of clearable v-text-field icon on focus",
+    "title": "[Bug Report][3.5.6] VTooltip with `target=\"parent\"` does not work",
     "milestone": ""
   },
   {
@@ -3169,21 +2643,7 @@
     ],
     "number": 19269,
     "title": "[Feature Request] When setting a v-switch to indeterminate, allow clicking on the left side to set it to false",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "ikushum"
-    ],
-    "comments": 4,
-    "createdAt": "2024-02-12T11:03:59Z",
-    "labels": [
-      "T: enhancement",
-      "C: VCombobox"
-    ],
-    "number": 19209,
-    "title": "[Bug Report][3.5.1] multiple selection combobox fully loses focus after item selection",
-    "milestone": ""
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -3197,19 +2657,6 @@
     ],
     "number": 19195,
     "title": "[Bug Report][3.5.3] Autocomplete Search not working with Vee-Validate",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 5,
-    "createdAt": "2024-02-05T10:00:56Z",
-    "labels": [
-      "T: enhancement",
-      "help wanted",
-      "C: VDataTableVirtual"
-    ],
-    "number": 19172,
-    "title": "[Bug Report][3.5.2] Event update:currentItems is missing from VDataTableVirtual",
     "milestone": ""
   },
   {
@@ -3382,22 +2829,6 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 15,
-    "createdAt": "2023-10-02T16:20:10Z",
-    "labels": [
-      "T: bug",
-      "C: VSelect",
-      "C: VCombobox",
-      "C: VAutocomplete"
-    ],
-    "number": 18383,
-    "title": "[Bug Report][3.3.19] VAutoComplete / VSelect with more than 12 items breaks list wrapping behavior",
-    "milestone": "v4.2.0"
-  },
-  {
     "assignees": [],
     "comments": 3,
     "createdAt": "2023-09-25T12:59:32Z",
@@ -3406,20 +2837,6 @@
     ],
     "number": 18336,
     "title": "[Feature Request] Allow to override density values inside Vuetify defaults",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "KaelWD"
-    ],
-    "comments": 1,
-    "createdAt": "2023-09-22T06:52:02Z",
-    "labels": [
-      "T: enhancement",
-      "framework"
-    ],
-    "number": 18308,
-    "title": "[Bug Report][3.3.17] Slots with only a comment do not render the default content",
     "milestone": ""
   },
   {
@@ -3458,15 +2875,6 @@
     "number": 17670,
     "title": "[Feature Request] VDataTable: Selection highlighting the row",
     "milestone": "v4.x.x"
-  },
-  {
-    "assignees": [],
-    "comments": 3,
-    "createdAt": "2023-06-06T09:00:52Z",
-    "labels": [],
-    "number": 17541,
-    "title": "[Bug Report][3.3.1] v-list-group in v-menu, v-menu set width 100%, jitter occurs when expanding",
-    "milestone": ""
   },
   {
     "assignees": [
@@ -3559,21 +2967,7 @@
   },
   {
     "assignees": [
-      "KaelWD"
-    ],
-    "comments": 3,
-    "createdAt": "2023-01-25T10:41:57Z",
-    "labels": [
-      "T: enhancement",
-      "C: VNavigationDrawer"
-    ],
-    "number": 16520,
-    "title": "[Bug Report][3.1.2] navigation drawer overlay issue in `VWindow` component",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "KaelWD"
+      "J-Sek"
     ],
     "comments": 4,
     "createdAt": "2022-12-18T04:42:26Z",
@@ -3588,81 +2982,11 @@
   },
   {
     "assignees": [],
-    "comments": 3,
-    "createdAt": "2022-12-09T23:38:29Z",
-    "labels": [
-      "T: bug",
-      "C: VMenu",
-      "has workaround"
-    ],
-    "number": 16257,
-    "title": "[Bug Report][3.0.4] v-select menu-props  maxHeight no longer supports '%' or 'vh' suffixes.",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 2,
     "createdAt": "2022-12-09T10:08:49Z",
     "labels": [],
     "number": 16251,
     "title": "[Bug Report][3.0.4] z-index is incorrect (useStack issue)",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 6,
-    "createdAt": "2022-12-08T17:00:59Z",
-    "labels": [
-      "T: bug",
-      "has workaround",
-      "C: VRadioGroup",
-      "C: VSelectionControlGroup"
-    ],
-    "number": 16245,
-    "title": "[Bug Report][3.0.4] v-radio-group not working with nested components that are not v-radio ",
-    "milestone": "v4.1.x"
-  },
-  {
-    "assignees": [
-      "webdevnerdstuff"
-    ],
-    "comments": 8,
-    "createdAt": "2022-11-23T15:28:24Z",
-    "labels": [
-      "T: enhancement",
-      "C: VNavigationDrawer",
-      "E: layout"
-    ],
-    "number": 16150,
-    "title": "[Bug Report][3.0.2] v-navigation-drawer width attribute does not accept \"px\" or \"%\"",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 8,
-    "createdAt": "2022-11-17T08:25:40Z",
-    "labels": [
-      "T: bug",
-      "C: VTextField",
-      "has workaround",
-      "C: VField"
-    ],
-    "number": 16109,
-    "title": "[Bug Report][3.0.1] VTextField - cursor input focusses to start when you toggle the field type using append-inner-icon",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "KaelWD"
-    ],
-    "comments": 2,
-    "createdAt": "2022-11-14T01:42:12Z",
-    "labels": [
-      "T: enhancement",
-      "C: VMenu"
-    ],
-    "number": 16085,
-    "title": "[Bug Report][3.0.1] VSelect Menu not staying open with menu-props set not to close",
     "milestone": ""
   },
   {
@@ -3677,30 +3001,6 @@
     ],
     "number": 15973,
     "title": "[Feature Request] Theme CSP nonce should be removed",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 2,
-    "createdAt": "2022-10-17T15:00:14Z",
-    "labels": [
-      "T: bug",
-      "C: VSlideGroup"
-    ],
-    "number": 15916,
-    "title": "[Bug Report][2.6.11] v-slide-group prev/next functions has a ux defect that prevents items from being shown completely",
-    "milestone": "v3.13.x"
-  },
-  {
-    "assignees": [],
-    "comments": 2,
-    "createdAt": "2022-05-03T09:43:34Z",
-    "labels": [
-      "T: feature",
-      "C: VBreadcrumbs"
-    ],
-    "number": 15030,
-    "title": "[Feature Request] v-breadcrumbs style option",
     "milestone": ""
   },
   {
@@ -3743,20 +3043,6 @@
     "milestone": "v3.13.x"
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
-    "comments": 2,
-    "createdAt": "2022-03-25T09:02:10Z",
-    "labels": [
-      "T: bug",
-      "C: VCombobox"
-    ],
-    "number": 14874,
-    "title": "[Bug Report][2.6.4] v-combobox will have empty value for spaces",
-    "milestone": "v4.2.0"
-  },
-  {
     "assignees": [],
     "comments": 3,
     "createdAt": "2022-01-05T00:02:30Z",
@@ -3796,18 +3082,6 @@
     "milestone": ""
   },
   {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2021-11-16T14:55:51Z",
-    "labels": [
-      "T: feature",
-      "C: VImg"
-    ],
-    "number": 14404,
-    "title": "[Feature Request] VImg: Add support of lazy loading with using srcset prop ",
-    "milestone": ""
-  },
-  {
     "assignees": [
       "johnleider"
     ],
@@ -3823,32 +3097,6 @@
   },
   {
     "assignees": [],
-    "comments": 1,
-    "createdAt": "2021-07-30T08:18:38Z",
-    "labels": [
-      "T: enhancement",
-      "C: VCarousel"
-    ],
-    "number": 14011,
-    "title": "[Feature Request] [v-carousel] Add a prop to limit a number of delimiters",
-    "milestone": "v4.2.0"
-  },
-  {
-    "assignees": [
-      "KaelWD"
-    ],
-    "comments": 0,
-    "createdAt": "2021-02-12T22:31:23Z",
-    "labels": [
-      "T: enhancement",
-      "C: VDialog"
-    ],
-    "number": 13099,
-    "title": "[Feature Request] Can tall dialogs scroll the screen rather than scroll their inner frame?",
-    "milestone": "v4.x.x"
-  },
-  {
-    "assignees": [],
     "comments": 4,
     "createdAt": "2020-12-01T16:38:11Z",
     "labels": [
@@ -3856,7 +3104,7 @@
     ],
     "number": 12716,
     "title": "[Task] v-drag",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [
@@ -3870,34 +3118,6 @@
     ],
     "number": 12642,
     "title": "[Feature Request] Add additional on-scroll options for app-bar",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "MajesticPotatoe"
-    ],
-    "comments": 0,
-    "createdAt": "2020-10-28T18:35:08Z",
-    "labels": [
-      "T: enhancement",
-      "good first issue",
-      "T: documentation",
-      "Service: Icons"
-    ],
-    "number": 12522,
-    "title": "[Documentation] Font Awesome preset comments",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2020-10-01T19:34:18Z",
-    "labels": [
-      "T: feature",
-      "C: VDataFooter"
-    ],
-    "number": 12333,
-    "title": "[Feature Request] Ability to change icon of the \"items-per-page\" drop down in v-data-footer",
     "milestone": ""
   },
   {
@@ -3974,20 +3194,7 @@
       "C: VPagination"
     ],
     "number": 11657,
-    "title": "[Feature Request] v-paginate slot or :to attribute support",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2020-06-16T13:05:55Z",
-    "labels": [
-      "T: feature",
-      "P: low",
-      "C: VWindow"
-    ],
-    "number": 11648,
-    "title": "[Feature Request] v-window(-item) events for switching to/from specific items",
+    "title": "[Feature Request] VPagination with links",
     "milestone": ""
   },
   {
@@ -4029,29 +3236,6 @@
   },
   {
     "assignees": [],
-    "comments": 1,
-    "createdAt": "2020-05-11T04:15:10Z",
-    "labels": [
-      "T: feature",
-      "C: VSlideGroup"
-    ],
-    "number": 11364,
-    "title": "[Feature Request] VSlideGroup: Events when reaching the start/end of the group",
-    "milestone": "v4.x.x"
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2020-04-29T22:42:51Z",
-    "labels": [
-      "C: VDataTable"
-    ],
-    "number": 11273,
-    "title": "[Feature Request] v-data-table: Allow per-row forms by rendering table as <div style=\"display: table\">",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 3,
     "createdAt": "2020-04-28T05:47:05Z",
     "labels": [
@@ -4064,9 +3248,7 @@
     "milestone": ""
   },
   {
-    "assignees": [
-      "J-Sek"
-    ],
+    "assignees": [],
     "comments": 5,
     "createdAt": "2020-04-21T17:52:54Z",
     "labels": [
@@ -4090,31 +3272,6 @@
     "number": 11170,
     "title": "[Feature Request] Disable window scrolling while swiping horizontally on tab in phone",
     "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 0,
-    "createdAt": "2020-04-19T02:31:52Z",
-    "labels": [
-      "T: enhancement",
-      "C: VDatePicker"
-    ],
-    "number": 11155,
-    "title": "[Feature Request] v-date-picker locale prop as array for fallback if current locale not supported by OS",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
-    "comments": 2,
-    "createdAt": "2020-04-02T12:38:09Z",
-    "labels": [
-      "T: feature",
-      "good first issue",
-      "C: VSlideGroup"
-    ],
-    "number": 11006,
-    "title": "[Feature Request] Slide groups: add vertical option",
-    "milestone": "v4.x.x"
   },
   {
     "assignees": [],
@@ -4183,19 +3340,6 @@
   },
   {
     "assignees": [],
-    "comments": 2,
-    "createdAt": "2020-02-07T08:51:39Z",
-    "labels": [
-      "T: feature",
-      "has workaround",
-      "C: VDataFooter"
-    ],
-    "number": 10503,
-    "title": "[Feature Request] Select page number on v-data-footer of v-data-table (Dropdown)",
-    "milestone": ""
-  },
-  {
-    "assignees": [],
     "comments": 0,
     "createdAt": "2020-02-02T12:43:04Z",
     "labels": [
@@ -4204,7 +3348,7 @@
     ],
     "number": 10422,
     "title": "[Feature Request] Access filtered-items of VDataTable",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -4269,7 +3413,7 @@
     ],
     "number": 9235,
     "title": "[Feature Request] [VMenu] Ability to open the menu with a right-click event",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [],
@@ -4338,8 +3482,7 @@
   },
   {
     "assignees": [
-      "eesayas",
-      "Haviles04"
+      "eesayas"
     ],
     "comments": 22,
     "createdAt": "2019-05-26T06:20:48Z",
@@ -4366,7 +3509,7 @@
     ],
     "number": 7283,
     "title": "[Feature Request] Prepend label for switch",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   },
   {
     "assignees": [
@@ -4434,7 +3577,7 @@
     ],
     "number": 5322,
     "title": "[Feature Request] VTouchHold Directive for Long-Press of an Element",
-    "milestone": "v4.2.0"
+    "milestone": "v4.x.x"
   },
   {
     "assignees": [],
@@ -4446,20 +3589,6 @@
     ],
     "number": 4900,
     "title": "[Feature Request] Validate subforms in form",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "johnleider"
-    ],
-    "comments": 8,
-    "createdAt": "2018-08-12T09:22:35Z",
-    "labels": [
-      "T: feature",
-      "C: VCard"
-    ],
-    "number": 4843,
-    "title": "[Feature Request] Add speech bubble prop to v-dialog / v-card?",
     "milestone": ""
   },
   {
@@ -4565,21 +3694,6 @@
     "assignees": [
       "J-Sek"
     ],
-    "comments": 10,
-    "createdAt": "2017-07-28T21:05:27Z",
-    "labels": [
-      "T: feature",
-      "C: New Component",
-      "C: VFeatureDiscovery"
-    ],
-    "number": 1171,
-    "title": "[Feature Request] Feature Discovery",
-    "milestone": ""
-  },
-  {
-    "assignees": [
-      "J-Sek"
-    ],
     "comments": 34,
     "createdAt": "2017-04-28T13:48:33Z",
     "labels": [
@@ -4589,6 +3703,6 @@
     ],
     "number": 459,
     "title": "[Feature Request] Combined pickers",
-    "milestone": "v4.2.0"
+    "milestone": "v4.3.0"
   }
 ]

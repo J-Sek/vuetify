@@ -1,11 +1,12 @@
-# Bugs (127)
+# Bugs (104)
 
+- 2026-08-10 #23093 [Bug Report][4.1.8] VBadge renders divs inside VBtn's span, producing invalid HTML
+- 2026-08-10 #23091 [Bug Report][4.1.8] VDataTable: Striping does not work when using expansion with expanded-slot
+- 2026-07-30 #23045 [Bug Report][4.1.6] border-opacity should not be used for v-progress-linear
 - 2026-07-27 #23042 [Bug Report] display.mobile disagrees with the mobileBreakpoint prop path (next only)
-- 2026-05-21 #22868 [Bug Report][4.0.7] VAvatar with tonal variant has the wrong bg color border-radius
 - 2026-05-21 #22867 [Feature Request] Data Table Search strategies to exclude non searched item
 - 2026-05-13 #22851 [Bug Report][3.12.6] In dark theme primary and info are identical
 - 2026-05-06 #22840 [Bug Report][4.0.6] VThemeProvider color not applied on VRadio
-- 2026-03-27 #22770 [Bug Report][4.0.4] VAutocomplete keyboard navigation broken with many items
 - 2026-03-19 #22730 [Bug Report][4.0.2] title attribute does not work on V-Select
 - 2026-03-09 #22696 [Bug Report][4.0.1] TreeView not opening children when its a getter with v-model:opened + return-object + item-title being a function
 - 2026-03-05 #22686 [Bug Report][4.0.1] Checkbox buttons in non-default density VList are misaligned
@@ -15,17 +16,12 @@
 - 2026-01-28 #22560 Keyboard focus is getting lost after closing the menu control using escape key in windows.
 - 2026-01-14 #22516 [Bug Report][3.11.6] Calendar outside days missing borders when calendar has an event
 - 2025-12-09 #22425 [Bug Report][3.11.2] VOverlay contained inside VMenu content disables menu "click outside" feature
-- 2025-12-02 #22392 [Bug Report][3.11.1] VTreeview with `open-all`: mutating an item causes all items to open again
 - 2025-11-19 #22348 [Bug Report][3.10.11] The slider thumb incorrectly adds .1 if :min="0.1" and :step="1"
 - 2025-10-30 #22269 [Bug Report][3.10.8] Outline VTextField Label position
-- 2025-10-29 #22264 [Bug Report][3.10.7] v-menu doesn't close when :close-on-content-click="false" and click inside other v-select outside
 - 2025-10-07 #22165 [Bug Report][3.10.4] validation error messages are laggy
 - 2025-10-02 #22147 [Bug Report][3.10.4] VTimelineItem with v-intersect directive has IntersectionObserver root as null in VTimeline
 - 2025-09-27 #22126 [Bug Report][3.10.3] VSelect / VAutocomplete default modelValue is null instead of undefined, causing unintended selection of null-valued item
-- 2025-09-26 #22124 [Bug Report][3.10.3] V-Overlay in MobileDevices with Mode "as DesktopWindow" is positioned incorrectly
-- 2025-09-24 #22119 [Bug Report][3.10.3] Topic switching scrollbar theme not following switching issue
 - 2025-09-22 #22098 [Bug Report][3.9.5] v-combobox has duplicate "combobox" roles within the component
-- 2025-09-09 #22035 [Bug Report][3.9.7] VTreeview won't automatically expand searched items' parents
 - 2025-09-04 #22007 [Bug Report][3.9.7] Navigation drawer and v-main are partially hidden under AppBar if using extension slot
 - 2025-08-29 #21982 [Bug Report][3.9.6] VTextarea auto-grow grows too much when text width is similar to the textarea width
 - 2025-08-28 #21972 [Bug Report][3.9.6] v-combobox placeholder not showing initially if the model value is empty string
@@ -33,34 +29,24 @@
 - 2025-08-13 #21920 [Bug Report][3.9.5] VForm A11y issue:  fast-fail inputs will not be announced to screenreader users when submitting invalid forms
 - 2025-08-13 #21915 [Bug Report][3.9.5] VTooltip does not close after activator position changes
 - 2025-08-12 #21914 [Bug Report][3.9.5] VTextField: a11y issues with labels
-- 2025-08-11 #21905 [Bug Report][3.9.4] V-Toolbar button tabbing and keyboard focus broken on Safari
 - 2025-08-07 #21891 [Bug Report][3.9.3] VTreeview中items[number].props.class not apply to parent item
-- 2025-08-06 #21888 [Bug Report][3.9.4] chipgroup in window, slide chips cause toggle window item on mobile
 - 2025-08-06 #21887 [Bug Report][3.9.4] Memory leak in Touch directive
-- 2025-08-05 #21883 [Bug Report][3.9.0] List items are not interactive in classic mode if they are disabled on mount.
-- 2025-07-30 #21854 [Bug Report][3.9.3] v-select inside v-navigation-drawer / v-expansion-panel jumps when opened
-- 2025-07-23 #21806 [Bug Report][3.9.2] Chips are not closing properly when content does not fit in slider
 - 2025-07-21 #21791 [Bug Report][3.9.2] V-Navigation-Drawer does not close when click outside while using both permanent and rail on mobile (Safari, IOS)
-- 2025-07-16 #21765 [Bug Report][3.8.6] VMenu with VTextField inside it doesn't close when clicked on VAutocomplete component available at same level of VMenu
 - 2025-07-14 #21754 [Bug Report][3.8.9] VMain computes the wrong --v-layout-top  when VAppBar density is compact or comfortable and extensionHeight is 0
 - 2025-07-08 #21714 [Feature Request] VMaskInput and :mask property
-- 2025-07-04 #21699 [Bug Report][3.8.12] Global configuration - contextual defaults for nested components - (VSelect > VChip > clearable)
 - 2025-07-03 #21693 [Bug Report][3.8.12] v-tooltip directive gives all tooltips the same id (v-tooltip-v-0)
 - 2025-06-12 #21565 [Bug Report][3.8.9] Combobox items not attached on iOS Safari
 - 2025-06-11 #21555 [Bug Report][3.8.8] VDataTableServer fires update:options twice when setting page to 1 on search
 - 2025-05-30 #21503 [Bug Report][3.8.7] VBtn call group.toggle even when the navigation is cancelled
-- 2025-05-27 #21490 [Bug Report][3.8.7] VDataTable VSelect's have hardcoded variants, custom styling is difficult
 - 2025-05-26 #21486 [Bug Report][3.8.6] Incorrect label positioning when using outlined variant and rounded
 - 2025-05-22 #21468 [Bug Report][3.8.6] When a button is touched,  the ripple effect cannot be triggered by a mouse click.
 - 2025-05-21 #21452 [Bug Report][3.8.6] v-virtual-scroll scroll position jums and scrolling becomes jittery after adding a new item to the list
 - 2025-05-17 #21426 [Bug Report][3.8.5] v-timeline-item does not render bottom connector line when nested in another v-timeline and it is the last item
-- 2025-05-15 #21420 [Bug Report][3.8.4] v-stepper-actions do not respect v-btn defaults
 - 2025-05-09 #21394 [Bug Report][3.8.4] Fixed header not respecting border radius of table
 - 2025-05-06 #21381 [Bug Report][3.8.3] VDataTableVirtual can show no data if items change while hidden with v-show
 - 2025-05-05 #21372 [Bug Report][3.8.3] VDataTableVirtual does not show correct number of rows when height is implicitly changed while hidden with v-show
 - 2025-04-30 #21340 [Bug Report][3.6.14] VSlideGroup dynamic item count
 - 2025-04-28 #21330 [Bug Report][3.8.2] Autoselect briefly becomes multiline with empty options after selecting a record
-- 2025-04-17 #21279 [Bug Report][3.8.1] Hard to change chip size within any dropdown component
 - 2025-04-10 #21242 [Bug Report][3.8.1] ARIA Tooltip nodes must have an accessible name
 - 2025-04-09 #21238 [Bug Report][3.8.1] V-Menu flickering when at zoom 110%
 - 2025-03-30 #21185 [Bug Report][3.6.14]  v-stepper component appears to rehydrate the window item multiple times when the item is a Vue component.
@@ -81,7 +67,6 @@
 - 2024-10-23 #20613 [Bug Report][3.7.3] V-data-table with inputs inside v-dialog performance issue
 - 2024-10-08 #20560 [Bug Report][3.7.2] Browser address autofill not populating states or countries
 - 2024-09-26 #20525 [Bug Report][3.7.2] v-data-table-virtual jumps rows if a cell has content with dynamic height
-- 2024-09-12 #20468 [Bug Report][3.7.4] - VMenu closes everything when clicked inside a dialog opened from another VMenu
 - 2024-09-09 #20444 [Bug Report][3.7.1] vAutocomplete: ResizeObserver loop completed with undelivered notifications
 - 2024-08-31 #20406 [Bug Report][3.7.1] Maximum recursive updates exceeded in component <VChipGroup>
 - 2024-08-26 #20398 [Bug Report][3.7.0] "Could not find injected layout" on toggling v-footer's app property
@@ -92,10 +77,8 @@
 - 2024-07-30 #20245 [Bug Report][3.6.13] v-slide-group returns to the leftmost position unexpectedly on iPhone
 - 2024-07-27 #20231 [Bug Report][3.6.13] VNavigationDrawer moves around the screen after changing text direction
 - 2024-06-28 #20076 [Bug Report][3.6.10] VAutocomplete not resetting label/ui on programmatic model value clear
-- 2024-06-12 #19998 [Bug Report][3.6.9] V-input with counter and hide-details='auto' Fails to Fully Hide Details
 - 2024-06-07 #19966 [Bug Report][3.6.8] VCardTitle or VCard Titles should not be truncated
 - 2024-05-30 #19919 [Bug Report][3.6.8] VTreeview slow performance on expand
-- 2024-05-27 #19909 [Bug Report][3.6.7] Infinite-Scroll load-event not fired after reseting Filter
 - 2024-05-13 #19801 [Bug Report][3.6.5] [V-tab]When v-tab scales quickly, it will report vuetify: Scroll target is not reachable
 - 2024-05-08 #19778 [Bug Report][3.6.4] clear-icon not animating when binding boolean value to :clearable prop
 - 2024-04-24 #19682 [Bug Report][3.5.17] v-window-item flickering with transition set to false
@@ -103,7 +86,7 @@
 - 2024-04-04 #19541 [Bug Report][3.5.14] VSlider Bug on iOS Devices
 - 2024-03-29 #19513 [Bug Report][2.7.0] v-snackbar is not consistently detected on multiple screen readers
 - 2024-03-15 #19409 [Bug Report][3.5.9] VListGroup does not expand with selected Item
-- 2024-03-01 #19311 [Bug Report][3.5.6] VTooltip with target parent does not work for VButton
+- 2024-03-01 #19311 [Bug Report][3.5.6] VTooltip with `target="parent"` does not work
 - 2024-02-26 #19275 [Bug Report][3.5.2] v-stepper "non-linear" property not working as expected 
 - 2024-02-08 #19195 [Bug Report][3.5.3] Autocomplete Search not working with Vee-Validate
 - 2024-01-05 #18981 [Bug Report][3.4.9] VTextField update during IME composition
@@ -116,14 +99,8 @@
 - 2023-11-16 #18702 [Bug Report][3.4.1] Automatic color variations override manually defined colors
 - 2023-10-19 #18505 [Bug Report][3.3.22] V-Dialog close-on-back does not work
 - 2023-10-16 #18474 [Bug Report][3.3.21] VTextField: outlined variant label animation isn't scaling with rem
-- 2023-10-02 #18383 [Bug Report][3.3.19] VAutoComplete / VSelect with more than 12 items breaks list wrapping behavior
 - 2023-05-15 #17381 [Bug Report][3.2.4] v-dialog not scrollable if content starts to overflow after mount
 - 2023-05-07 #17314 [Bug Report][3.2.2] VMenu position incorrect the first time after switching to or from RTL
 - 2023-04-18 #17176 [Bug Report][3.1.14] Components built with @/composables/router can crash when routes are missing required params
 - 2023-01-26 #16535 [Bug Report][3.1.2] v-text-field details slot - not replacing default content
 - 2022-12-18 #16288 [Bug Report][3.0.5] VBtn size as number does not affect font size
-- 2022-12-09 #16257 [Bug Report][3.0.4] v-select menu-props  maxHeight no longer supports '%' or 'vh' suffixes.
-- 2022-12-08 #16245 [Bug Report][3.0.4] v-radio-group not working with nested components that are not v-radio 
-- 2022-11-17 #16109 [Bug Report][3.0.1] VTextField - cursor input focusses to start when you toggle the field type using append-inner-icon
-- 2022-10-17 #15916 [Bug Report][2.6.11] v-slide-group prev/next functions has a ux defect that prevents items from being shown completely
-- 2022-03-25 #14874 [Bug Report][2.6.4] v-combobox will have empty value for spaces
