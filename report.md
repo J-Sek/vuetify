@@ -1,31 +1,31 @@
 # Vuetify Open Issues Report
 
-**Date:** 2026-05-31
-**Total open issues:** 385
+**Date:** 2026-07-28
+**Total open issues:** 349
 
 ## Count by Year
 
 | Year | Count |
 |------|-------|
 | 2017 | 5     |
-| 2018 | 11    |
+| 2018 | 8     |
 | 2019 | 15    |
-| 2020 | 30    |
+| 2020 | 28    |
 | 2021 | 6     |
-| 2022 | 16    |
-| 2023 | 29    |
-| 2024 | 82    |
-| 2025 | 144   |
-| 2026 | 47    |
+| 2022 | 15    |
+| 2023 | 24    |
+| 2024 | 72    |
+| 2025 | 127   |
+| 2026 | 49    |
 
 ## Count by Tags
 
 | Tag            | Count |
 |----------------|-------|
-| T: bug         | 155   |
-| T: feature     | 120   |
-| has workaround | 43    |
+| T: bug         | 127   |
+| T: feature     | 117   |
+| has workaround | 39    |
 
 ## Bugs without milestone, workaround, or "good first issue" label
 
-**Count: 95**
+**Count: 77**

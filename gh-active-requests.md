@@ -1,9 +1,12 @@
-# Requests (120)
+# Requests (117)
 
+- 2026-06-10 #22917 [Feature Request] Highlight letters with accent
+- 2026-06-04 #22893 [Feature Request] Add mouse wheel gesture support for navigation in v-carousel / v-window
 - 2026-05-20 #22862 [Feature Request] Built-in Filter Editor for v-data-table (multi-condition, per-column, with operators)
+- 2026-03-05 #22685 RFC: Component-Scoped Defaults & Internal Roles
 - 2026-03-04 #22674 [Bug Report][4.0.0] VSlider density is missing
 - 2026-02-24 #22647 [Feature Request] v-data-table-virtual: Expose scroll container element or an @scroll-end event for infinite scroll use cases
-- 2026-02-05 #22593 [Feature Request] VCalendar Category View Highlighted Time
+- 2025-12-12 #22438 [Feature Request] Form components should also support size property (v3.10)
 - 2025-12-10 #22428 [Feature Request] VDatePicker add add click:date and dblclick:date events
 - 2025-11-27 #22374 [Bug Report][3.11.0] new 3.11 VNavigationDrawer can't be opened with inner button
 - 2025-11-21 #22357 [Feature Request] In VCalendar - set disabled dates and custom time intervals on dates
@@ -12,8 +15,8 @@
 - 2025-09-17 #22076 [Feature Request] Add `VSplitButton` Component
 - 2025-09-13 #22053 [Feature Request] Support Adjacent Labels on VField through label-variant
 - 2025-08-05 #21885 [Feature Request] Add aria-disabled to disabled hours/minutes in time picker
-- 2025-08-04 #21877 [Feature Request] Better support for Column Filters
-- 2025-08-01 #21866 [Feature Request] Resizable columns + automatic hide / display column feature
+- 2025-08-04 #21877 [Feature Request] VDataTable: Better support for Column Filters
+- 2025-08-01 #21866 [Feature Request] VDataTable: Resizable columns + automatic hide / display column feature
 - 2025-07-23 #21811 [Feature Request] Allow nested "dialogs" to be closed with esc key in correct order by exporting globalStack
 - 2025-07-17 #21773 [Feature Request] Add :text prop to <v-checkbox>
 - 2025-07-16 #21766 [Feature Request] [VNumberInput] support scientfic notation
@@ -35,10 +38,8 @@
 - 2025-03-09 #21081 [Feature Request] Ripple Effect Disabled But Active State Styling Missing
 - 2025-03-09 #21080 [Feature Request] oklch color support
 - 2025-02-03 #20957 [Feature Request] Support VMenu arrow key navigation when in shadow root
-- 2025-01-30 #20942 [Feature Request] VSkeletonLoader table-col
 - 2025-01-27 #20924 [Feature Request] VDatePicker: Support non-gregorian calendars
 - 2025-01-20 #20886 [Feature Request] Slot `placeholder` for `VTextarea`
-- 2025-01-17 #20872 [Feature Request] V-slider: Disable clicking on the slider track
 - 2024-12-27 #20804 [Feature Request] Set VImg src by breakpoint
 - 2024-12-17 #20784 [Feature Request] Add Click Event to Time Picker Hours, Minutes, and Period
 - 2024-12-08 #20769 [Feature Request] Using VSelect v-slot:selection-display to override the entire selection output
@@ -46,12 +47,12 @@
 - 2024-11-04 #20662 [Feature Request] V-data-table-virtual without scrollbar (loads when page scrolls into view)
 - 2024-10-23 #20612 [Feature Request] Allow `globalStack` to be shared across multiple dynamically loaded Vuetify apps
 - 2024-10-18 #20591 [Feature Request] VNavigationDrawer force expand
+- 2024-10-17 #20590 [Bug Report][3.7.2] Autocomplete > menu-props > closeOnContentClick
 - 2024-10-14 #20576 [Feature Request] Add Drag and Drop Visual Feedback to `v-file-input` Component.
 - 2024-10-02 #20546 [Feature Request] closable-chips for VFileInput
 - 2024-09-27 #20529 [Feature Request] Allow fixed header in v-data-table to be positioned to the top of the page
 - 2024-09-26 #20524 [Feature Request] add ability to change v-checkbox-btn icon size
 - 2024-09-10 #20454 [Feature Request] MD3 blueprint
-- 2024-09-10 #20451 [Feature Request] Timeline item skeleton loader
 - 2024-09-01 #20409 [Feature Request] Add duration Prop to Automatically Dismiss v-alert
 - 2024-08-22 #20371 [Feature Request] VRadioGroup/VRadio missing active-class prop
 - 2024-08-14 #20333 [Feature Request] Treeview: Determine what element is being hovered over
@@ -62,7 +63,6 @@
 - 2024-02-26 #19277 Change color of clearable v-text-field icon on focus
 - 2024-01-24 #19099 [Feature Request] VForm add possibility to set validation errors programatically
 - 2023-05-29 #17490 [Feature Request] Support nuxt prop for Vuetify 3 on Routable components
-- 2022-11-09 #16054 [Feature Request] [v-btn-toggle] Missing a size option
 - 2022-10-25 #15973 [Feature Request] Theme CSP nonce should be removed
 - 2022-05-03 #15030 [Feature Request] v-breadcrumbs style option
 - 2022-04-28 #15014 [Feature Request] VSelect - a slot to replace menu content
@@ -89,7 +89,6 @@
 - 2020-03-27 #10952 [Feature Request] Add Sass variable for color definition of datatables headers
 - 2020-03-24 #10930 [Feature Request] Ripple on dragged elements
 - 2020-03-23 #10923 [Feature Request] Add widths property to v-data-table item.* slots
-- 2020-03-09 #10796 [Feature Request] v-treeview: Keyboard support
 - 2020-03-02 #10722 [Feature Request] Add keyboard controls to v-timepicker
 - 2020-02-11 #10544 [Feature Request] Add mouse hover to stop cycle(change of slide) in carousel.
 - 2020-02-07 #10503 [Feature Request] Select page number on v-data-footer of v-data-table (Dropdown)
@@ -107,12 +106,10 @@
 - 2019-05-24 #7283 [Feature Request] Prepend label for switch
 - 2019-01-02 #6039 [Feature Request] VTreeTable component or aggregation support
 - 2019-01-02 #6029 [Feature Request] Multiple paths for VSparkline
-- 2018-11-21 #5682 [Feature Request] Combobox: Emit an event on item creation
 - 2018-11-04 #5521 [Feature Request] Add more ripple options
 - 2018-10-14 #5322 [Feature Request] VTouchHold Directive for Long-Press of an Element
 - 2018-08-17 #4900 [Feature Request] Validate subforms in form
 - 2018-08-12 #4843 [Feature Request] Add speech bubble prop to v-dialog / v-card?
-- 2018-05-14 #4054 [Feature Request] Support added/deleted callbacks for deletable-chips in <v-select>
 - 2018-03-12 #3550 [Feature Request] Wysiwyg like Vueditor base on Vuetify Material Design
 - 2018-03-07 #3493 [Feature Request] List item swipe behind controls
 - 2017-12-30 #2905 [Feature Request] FAB morphing (FAB to toolbar etc.)
