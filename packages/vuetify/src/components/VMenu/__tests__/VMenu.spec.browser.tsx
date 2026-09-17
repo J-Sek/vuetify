@@ -11,8 +11,8 @@ import { VTextField } from '@/components/VTextField'
 import { VTooltip } from '@/components/VTooltip'
 
 // Utilities
-import { commands, render, screen, userEvent, wait } from '@test'
-import { ref } from 'vue'
+import { commands, render, screen, touch, userEvent, wait } from '@test'
+import { nextTick, ref } from 'vue'
 
 describe('VMenu', () => {
   describe('open-on-focus with template activator', () => {
@@ -367,12 +367,164 @@ describe('VMenu', () => {
     expect(Math.round(content.top)).toBe(Math.round(box.top + 120))
 
     area.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: box.left + 10, clientY: box.top + 10 }))
-    await expect.poll(() => screen.queryByTestId('menu-content')?.checkVisibility() ?? false).toBe(false)
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeNull()
 
     area.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: box.left + 10, clientY: box.top + 10 }))
     await expect.poll(() => screen.queryByTestId('menu-content')).toBeVisible()
     await userEvent.click(area, { position: { x: 200, y: 250 } })
-    await expect.poll(() => screen.queryByTestId('menu-content')?.checkVisibility() ?? false).toBe(false)
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeNull()
+  })
+
+  it('should open a context menu on long-press at the touch point', async () => {
+    render(() => (
+      <VSheet data-testid="area" height="300" width="300">
+        <VMenu activator="parent" contextMenu>
+          <VSheet data-testid="menu-content" height="40" width="80" />
+        </VMenu>
+      </VSheet>
+    ))
+    await nextTick()
+
+    const area = screen.getByTestId('area')
+    const { left: x, top: y } = area.getBoundingClientRect()
+
+    touch(area).start(x + 60, y + 70)
+    await wait(200)
+    touch(area).end(x + 60, y + 70)
+    await wait(400)
+    expect(screen.queryByTestId('menu-content')).toBeNull()
+
+    touch(area).start(x + 60, y + 70)
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeVisible()
+    touch(area).end(x + 60, y + 70)
+
+    const content = screen.getByTestId('menu-content').getBoundingClientRect()
+    expect(Math.round(content.left)).toBe(Math.round(x + 60))
+    expect(Math.round(content.top)).toBe(Math.round(y + 70))
+  })
+
+  it('should open only the innermost context menu on long-press', async () => {
+    render(() => (
+      <VSheet data-testid="outer" height="300" width="300">
+        <VMenu activator="parent" contextMenu>
+          <VSheet data-testid="outer-content" height="40" width="80" />
+        </VMenu>
+        <VSheet data-testid="inner" height="100" width="100">
+          <VMenu activator="parent" contextMenu>
+            <VSheet data-testid="inner-content" height="40" width="80" />
+          </VMenu>
+        </VSheet>
+      </VSheet>
+    ))
+    await nextTick()
+
+    const inner = screen.getByTestId('inner')
+    const { left: x, top: y } = inner.getBoundingClientRect()
+
+    touch(inner).start(x + 10, y + 10)
+    await expect.poll(() => screen.queryByTestId('inner-content')).toBeVisible()
+    touch(inner).end(x + 10, y + 10)
+    await wait(300)
+
+    expect(screen.queryByTestId('inner-content')).toBeVisible()
+    expect(screen.queryByTestId('outer-content')).toBeNull()
+  })
+
+  it('should close other menus when long-pressing another activator', async () => {
+    render(() => (
+      <div class="d-flex">
+        <VSheet data-testid="a" height="100" width="100">
+          <VMenu activator="parent" contextMenu>
+            <VSheet data-testid="a-content" height="40" width="80" />
+          </VMenu>
+        </VSheet>
+        <VSheet data-testid="b" height="100" width="100">
+          <VMenu activator="parent" contextMenu>
+            <VSheet data-testid="b-content" height="40" width="80" />
+          </VMenu>
+        </VSheet>
+      </div>
+    ))
+    await nextTick()
+
+    const a = screen.getByTestId('a')
+    const b = screen.getByTestId('b')
+
+    touch(a).start(a.getBoundingClientRect().left + 10, a.getBoundingClientRect().top + 10)
+    await expect.poll(() => screen.queryByTestId('a-content')).toBeVisible()
+
+    touch(b).start(b.getBoundingClientRect().left + 10, b.getBoundingClientRect().top + 10)
+    await expect.poll(() => screen.queryByTestId('b-content')).toBeVisible()
+    await expect.poll(() => screen.queryByTestId('a-content')).toBeNull()
+  })
+
+  it('should open once when the browser fires contextmenu during the long-press', async () => {
+    render(() => (
+      <VSheet data-testid="area" height="100" width="100">
+        <VMenu activator="parent" contextMenu>
+          <VSheet data-testid="menu-content" height="40" width="80" />
+        </VMenu>
+      </VSheet>
+    ))
+    await nextTick()
+
+    const area = screen.getByTestId('area')
+    const { left: x, top: y } = area.getBoundingClientRect()
+
+    touch(area).start(x + 10, y + 10)
+    await wait(200)
+    // a real event: the browser flushes microtasks between listeners, which script-dispatched events skip
+    await userEvent.click(area, { button: 'right', position: { x: 10, y: 10 } })
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeVisible()
+    await wait(600)
+
+    expect(screen.queryByTestId('menu-content')).toBeVisible()
+  })
+
+  it('should keep a cursor-positioned menu attached to the activator on scroll', async () => {
+    render(() => (
+      <div data-testid="scroller" style="height: 200px; overflow: auto">
+        <VSheet data-testid="area" height="600" width="300">
+          <VMenu activator="parent" contextMenu>
+            <VSheet data-testid="menu-content" height="40" width="80" />
+          </VMenu>
+        </VSheet>
+      </div>
+    ))
+    await nextTick()
+
+    const area = screen.getByTestId('area')
+    const box = area.getBoundingClientRect()
+    area.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: box.left + 50, clientY: box.top + 100 }))
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeVisible()
+    await wait(300)
+    const before = screen.getByTestId('menu-content').getBoundingClientRect().top
+
+    screen.getByTestId('scroller').scrollTop = 40
+    await expect.poll(() => Math.round(screen.getByTestId('menu-content').getBoundingClientRect().top)).toBe(Math.round(before - 40))
+  })
+
+  it('should open a hover submenu on tap without closing the parent', async () => {
+    render(() => (
+      <VMenu modelValue>
+        <VList>
+          <VListItem data-testid="parent-item" link title="More">
+            <VMenu activator="parent" openOnFocus={ false } openOnHover submenu>
+              <VList>
+                <VListItem data-testid="sub-item" title="Sub" />
+              </VList>
+            </VMenu>
+          </VListItem>
+        </VList>
+      </VMenu>
+    ))
+    await expect.poll(() => screen.queryByTestId('parent-item')).toBeVisible()
+
+    // a tap, without the mouseenter that would open the submenu on hover instead
+    screen.getByTestId('parent-item').dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }))
+
+    await expect.poll(() => screen.queryByTestId('sub-item')).toBeVisible()
+    expect(screen.queryByTestId('parent-item')).toBeVisible()
   })
 
   it('should close on right and middle click outside', async () => {
@@ -390,19 +542,17 @@ describe('VMenu', () => {
 
     const area = screen.getByTestId('area')
     const outside = screen.getByTestId('outside')
-    const isVisible = () => screen.queryByTestId('menu-content')?.checkVisibility() ?? false
 
     await userEvent.click(area, { button: 'right' })
-    await wait(100)
-    expect(isVisible()).toBe(true)
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeVisible()
 
     await userEvent.click(outside, { button: 'right' })
-    await expect.poll(isVisible).toBe(false)
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeNull()
 
     await userEvent.click(area, { button: 'right' })
-    await expect.poll(isVisible).toBe(true)
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeVisible()
     await userEvent.click(outside, { button: 'middle' })
-    await expect.poll(isVisible).toBe(false)
+    await expect.poll(() => screen.queryByTestId('menu-content')).toBeNull()
   })
 
   describe('cascade close', () => {
