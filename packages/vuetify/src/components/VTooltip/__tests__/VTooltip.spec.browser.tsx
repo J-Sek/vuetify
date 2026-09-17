@@ -5,7 +5,8 @@ import { VList, VListItem } from '@/components/VList'
 import { VMenu } from '@/components/VMenu'
 
 // Utilities
-import { render, screen, userEvent, wait } from '@test'
+import { render, screen, touch, userEvent, wait } from '@test'
+import { nextTick } from 'vue'
 
 describe('VTooltip', () => {
   it('should not focus the activator after closing on mouseleave', async () => {
@@ -61,5 +62,59 @@ describe('VTooltip', () => {
     expect(document.activeElement).not.toBe(tooltipBtn)
     // the menu should remain open
     expect(screen.queryByCSS('.v-menu .v-overlay__content')).toBeVisible()
+  })
+
+  it('should open on touch-hold instead of tap and close on tap outside', async () => {
+    render(() => (
+      <div>
+        <VBtn data-testid="btn">
+          Hold me
+          <VTooltip activator="parent" openOnTouchHold>Tooltip</VTooltip>
+        </VBtn>
+        <VBtn data-testid="other">Other</VBtn>
+      </div>
+    ))
+
+    const btn = screen.getByTestId('btn')
+    const content = () => screen.queryByCSS('.v-tooltip .v-overlay__content')
+    await nextTick()
+
+    // a tap, followed by the mouse events the browser emulates for it
+    btn.dispatchEvent(new PointerEvent('pointerenter', { pointerType: 'touch' }))
+    touch(btn).start(10, 10).end(10, 10)
+    btn.dispatchEvent(new MouseEvent('mouseenter'))
+    await wait(600)
+    expect(content()).not.toBeVisible()
+
+    touch(btn).start(10, 10)
+    await expect.poll(content).toBeVisible()
+    touch(btn).end(10, 10)
+    await wait(600)
+    expect(content()).toBeVisible()
+
+    await userEvent.click(screen.getByTestId('other'))
+    await expect.poll(content).not.toBeVisible()
+  })
+
+  it('should stay open when the browser fires contextmenu during the touch-hold', async () => {
+    render(() => (
+      <VBtn data-testid="btn">
+        Hold me
+        <VTooltip activator="parent" openOnTouchHold>Tooltip</VTooltip>
+      </VBtn>
+    ))
+
+    const btn = screen.getByTestId('btn')
+    const content = () => screen.queryByCSS('.v-tooltip .v-overlay__content')
+    await nextTick()
+
+    touch(btn).start(10, 10)
+    await wait(200)
+    // a real event: the browser flushes microtasks between listeners, which script-dispatched events skip
+    await userEvent.click(btn, { button: 'right' })
+    await wait(600)
+    touch(btn).end(10, 10)
+
+    expect(content()).toBeVisible()
   })
 })

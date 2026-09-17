@@ -446,8 +446,8 @@ export const VOverlay = genericComponent<OverlaySlots>()({
                     include: () => {
                       if (!isActive.value) return []
                       return [
-                        // a context menu has no click toggle, so a click on its activator closes it like any outside click
-                        props.contextMenu && !props.openOnClick ? undefined : activatorEl.value,
+                        // without a click toggle, a click on the activator closes it like any outside click
+                        (props.contextMenu || props.openOnTouchHold) && !props.openOnClick ? undefined : activatorEl.value,
                         // Submenu clicks count as "inside"; clicks in ancestor overlays (e.g. a host dialog) don't.
                         ...Array.from(document.querySelectorAll('.v-overlay__content'))
                           .filter(ownsFocus) as HTMLElement[],

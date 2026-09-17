@@ -49,6 +49,7 @@ interface ActivatorProps extends DelayProps {
   openOnClick: boolean | undefined
   openOnHover: boolean
   openOnFocus: boolean | undefined
+  openOnTouchHold: boolean
   contextMenu: boolean
 
   closeOnContentClick: boolean
@@ -71,6 +72,7 @@ export const makeActivatorProps = propsFactory({
     type: Boolean,
     default: undefined,
   },
+  openOnTouchHold: Boolean,
   contextMenu: Boolean,
 
   closeOnContentClick: Boolean,
@@ -103,7 +105,7 @@ export function useActivator (
 
   const openOnFocus = computed(() => props.openOnFocus || (props.openOnFocus == null && props.openOnHover))
   const openOnClick = computed(() => props.openOnClick || (
-    props.openOnClick == null && !props.openOnHover && !openOnFocus.value && !props.contextMenu
+    props.openOnClick == null && !props.openOnHover && !openOnFocus.value && !props.contextMenu && !props.openOnTouchHold
   ))
 
   const { runOpenDelay, runCloseDelay } = useDelay(props, value => {
@@ -140,6 +142,7 @@ export function useActivator (
   })
 
   const cursorTarget = ref<[x: number, y: number]>()
+  let pointerIsTouch = false
   let cursorOffset: [x: number, y: number] | undefined
   function setCursorTarget (point: [x: number, y: number] | undefined) {
     cursorTarget.value = point
@@ -148,9 +151,14 @@ export function useActivator (
   }
 
   const touchHold = createTouchHold({
-    handler: ({ originalEvent, clientX, clientY }) => {
-      // going through contextmenu closes other overlays and lets the innermost activator take it
-      originalEvent.target!.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX, clientY }))
+    handler: ({ originalEvent, target, clientX, clientY }) => {
+      if (props.contextMenu) {
+        // going through contextmenu closes other overlays and lets the innermost activator take it
+        originalEvent.target!.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX, clientY }))
+      } else {
+        activatorEl.value = target
+        isActive.value = true
+      }
     },
   })
   const availableEvents = {
@@ -169,7 +177,12 @@ export function useActivator (
       activatorEl.value = (e.currentTarget || e.target) as HTMLElement
       isActive.value = true
     },
+    // a touch emulates mouseenter, which would open on tap instead of hold
+    onPointerenter: (e: PointerEvent) => {
+      pointerIsTouch = e.pointerType === 'touch'
+    },
     onMouseenter: (e: MouseEvent) => {
+      if (props.openOnTouchHold && pointerIsTouch) return
       isHovered = true
       activatorEl.value = (e.currentTarget || e.target) as HTMLElement
       if (props.target === 'cursor') {
@@ -237,7 +250,12 @@ export function useActivator (
     }
     if (props.contextMenu) {
       events.onContextmenu = availableEvents.onContextmenu
+    }
+    if (props.contextMenu || props.openOnTouchHold) {
       events.onTouchstart = availableEvents.onTouchstart
+    }
+    if (props.openOnTouchHold) {
+      events.onPointerenter = availableEvents.onPointerenter
     }
     if (openOnFocus.value) {
       events.onFocus = availableEvents.onFocus
@@ -332,8 +350,8 @@ export function useActivator (
     else document.removeEventListener('scroll', onScroll, { capture: true })
   })
 
-  watch([activatorEl, () => props.contextMenu], ([el, contextMenu]) => {
-    if (el && contextMenu) preventCallout(el)
+  watch([activatorEl, () => props.contextMenu || props.openOnTouchHold], ([el, hold]) => {
+    if (el && hold) preventCallout(el)
   }, { immediate: true })
 
   // clearing earlier makes the leave transition fly back to the activator

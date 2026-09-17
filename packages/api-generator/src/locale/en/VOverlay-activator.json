@@ -9,6 +9,7 @@
     "openOnClick": "Activate the component when the activator is clicked.",
     "openOnFocus": "Activate the component when the activator is focused.",
     "openOnHover": "Activate the component when the activator is hovered.",
+    "openOnTouchHold": "Activate the component when the activator is touched and held. Taps no longer open it on touch devices.",
     "target": "For locationStrategy=\"connected\", specify an element or array of x,y coordinates that the overlay should position itself relative to. This will be the activator element by default."
   }
 }

@@ -111,6 +111,7 @@ export const makeVSnackbarProps = propsFactory({
     transition: 'v-snackbar-transition',
   }), [
     'contextMenu',
+    'openOnTouchHold',
     'persistent',
     'noClickAnimation',
     'offset',

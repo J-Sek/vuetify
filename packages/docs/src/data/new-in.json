@@ -62,7 +62,8 @@
   },
   "VBottomSheet": {
     "props": {
-      "contextMenu": "4.3.0"
+      "contextMenu": "4.3.0",
+      "openOnTouchHold": "4.3.0"
     }
   },
   "VBreadcrumbsItem": {
@@ -295,6 +296,7 @@
     "props": {
       "captureFocus": "3.11.0",
       "contextMenu": "4.3.0",
+      "openOnTouchHold": "4.3.0",
       "retainFocus": "3.11.0",
       "stickToTarget": "3.10.0",
       "viewportMargin": "3.11.0"
@@ -394,6 +396,7 @@
       "captureFocus": "3.11.0",
       "contextMenu": "4.3.0",
       "openOnArrow": "4.2.0",
+      "openOnTouchHold": "4.3.0",
       "retainFocus": "3.11.0",
       "stickToTarget": "3.10.0",
       "submenu": "3.7.0",
@@ -442,6 +445,7 @@
     "props": {
       "captureFocus": "3.11.0",
       "contextMenu": "4.3.0",
+      "openOnTouchHold": "4.3.0",
       "retainFocus": "3.11.0",
       "stickToTarget": "3.10.0",
       "viewportMargin": "3.11.0"
@@ -583,7 +587,8 @@
   },
   "VSpeedDial": {
     "props": {
-      "contextMenu": "4.3.0"
+      "contextMenu": "4.3.0",
+      "openOnTouchHold": "4.3.0"
     }
   },
   "VSparkline": {
@@ -723,6 +728,7 @@
   },
   "VTooltip": {
     "props": {
+      "openOnTouchHold": "4.3.0",
       "eager": "3.2.0",
       "interactive": "3.8.0",
       "stickToTarget": "3.10.0",
@@ -730,7 +736,8 @@
       "persistent": "3.11.3"
     },
     "examples": {
-      "prop-interactive": "3.8.0"
+      "prop-interactive": "3.8.0",
+      "prop-open-on-touch-hold": "4.3.0"
     }
   },
   "VVirtualScroll": {

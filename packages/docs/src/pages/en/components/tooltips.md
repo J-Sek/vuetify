@@ -65,6 +65,12 @@ The **open-on-click** prop allows tooltip to open when the activator is clicked.
 
 <ExamplesExample file="v-tooltip/prop-open-on-click"/>
 
+#### Open on touch-hold
+
+The **open-on-touch-hold** prop opens the tooltip when the activator is touched and held, so a tap only triggers the button. Tap anywhere else to close it. Hover still works for mouse users.
+
+<ExamplesExample file="v-tooltip/prop-open-on-touch-hold" />
+
 #### Visibility
 
 Tooltip visibility can be programmatically changed using `v-model`.
