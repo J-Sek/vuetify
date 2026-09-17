@@ -12,6 +12,7 @@ import type {
   VNode,
 } from 'vue'
 import type { TouchStoredHandlers } from './directives/touch'
+import type { TouchHold } from './directives/touch-hold'
 
 declare global {
   interface Element {
@@ -51,6 +52,7 @@ declare global {
     _touchHandlers?: {
       [_uid: number]: TouchStoredHandlers
     }
+    _touchHold?: Record<number, TouchHold | undefined>
     _transitionInitialStyles?: {
       position: string
       top: string

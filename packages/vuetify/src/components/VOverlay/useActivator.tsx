@@ -4,6 +4,9 @@ import { VMenuSymbol } from '@/components/VMenu/shared'
 // Composables
 import { makeDelayProps, useDelay } from '@/composables/delay'
 
+// Directives
+import { createTouchHold, preventCallout } from '@/directives/touch-hold'
+
 // Utilities
 import {
   computed,
@@ -137,28 +140,45 @@ export function useActivator (
   })
 
   const cursorTarget = ref<[x: number, y: number]>()
-  let touchHoldTimer = -1
-  let openedByTouchHold = false
+  let cursorOffset: [x: number, y: number] | undefined
+  function setCursorTarget (point: [x: number, y: number] | undefined) {
+    cursorTarget.value = point
+    const rect = activatorEl.value?.getBoundingClientRect()
+    cursorOffset = point && rect && [point[0] - rect.left, point[1] - rect.top]
+  }
+
+  const touchHold = createTouchHold({
+    handler: ({ originalEvent, clientX, clientY }) => {
+      // going through contextmenu closes other overlays and lets the innermost activator take it
+      originalEvent.target!.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX, clientY }))
+    },
+  })
   const availableEvents = {
     onClick: (e: MouseEvent) => {
       if (reopenLock && !isActive.value) return
       e.stopPropagation()
       activatorEl.value = (e.currentTarget || e.target) as HTMLElement
       if (!isActive.value) {
-        cursorTarget.value = [e.clientX, e.clientY]
+        setCursorTarget([e.clientX, e.clientY])
       }
       isActive.value = !isActive.value
+    },
+    // tapping a hover submenu on touch would otherwise count as a click on the parent menu content
+    onSubmenuClick: (e: MouseEvent) => {
+      e.stopPropagation()
+      activatorEl.value = (e.currentTarget || e.target) as HTMLElement
+      isActive.value = true
     },
     onMouseenter: (e: MouseEvent) => {
       isHovered = true
       activatorEl.value = (e.currentTarget || e.target) as HTMLElement
       if (props.target === 'cursor') {
-        cursorTarget.value = [e.clientX, e.clientY]
+        setCursorTarget([e.clientX, e.clientY])
       }
       runOpenDelay()
     },
     onMousemove: (e: MouseEvent) => {
-      cursorTarget.value = [e.clientX, e.clientY]
+      setCursorTarget([e.clientX, e.clientY])
     },
     onMouseleave: (e: MouseEvent) => {
       isHovered = false
@@ -178,35 +198,16 @@ export function useActivator (
     onContextmenu: (e: MouseEvent) => {
       e.preventDefault()
       e.stopPropagation()
-      clearTimeout(touchHoldTimer)
-      // Android fires contextmenu for the same long-press
-      if (openedByTouchHold) return
       if (isActive.value) {
         isActive.value = false
         return
       }
       activatorEl.value = (e.currentTarget || e.target) as HTMLElement
       // keyboard-triggered contextmenu (Shift+F10) may report 0,0; anchor to the activator instead
-      cursorTarget.value = e.clientX || e.clientY ? [e.clientX, e.clientY] : undefined
+      setCursorTarget(e.clientX || e.clientY ? [e.clientX, e.clientY] : undefined)
       isActive.value = true
     },
-    // iOS never fires contextmenu, so emulate the long-press
-    onTouchstart: (e: TouchEvent) => {
-      clearTimeout(touchHoldTimer)
-      openedByTouchHold = false
-      if (e.touches.length > 1) return
-      const { clientX, clientY } = e.touches[0]
-      const el = (e.currentTarget || e.target) as HTMLElement
-      touchHoldTimer = window.setTimeout(() => {
-        activatorEl.value = el
-        cursorTarget.value = [clientX, clientY]
-        openedByTouchHold = !isActive.value
-        isActive.value = true
-      }, 500)
-    },
-    onTouchmove: () => clearTimeout(touchHoldTimer),
-    onTouchend: () => clearTimeout(touchHoldTimer),
-    onTouchcancel: () => clearTimeout(touchHoldTimer),
+    onTouchstart: touchHold.onTouchstart,
     onBlur: (e: FocusEvent) => {
       // Body parks from clicks on empty areas inside content also count as "still focused".
       const next = e.relatedTarget as Element | null
@@ -224,6 +225,8 @@ export function useActivator (
 
     if (openOnClick.value) {
       events.onClick = availableEvents.onClick
+    } else if (isSubmenu && props.openOnHover) {
+      events.onClick = availableEvents.onSubmenuClick
     }
     if (props.openOnHover) {
       events.onMouseenter = availableEvents.onMouseenter
@@ -235,9 +238,6 @@ export function useActivator (
     if (props.contextMenu) {
       events.onContextmenu = availableEvents.onContextmenu
       events.onTouchstart = availableEvents.onTouchstart
-      events.onTouchmove = availableEvents.onTouchmove
-      events.onTouchend = availableEvents.onTouchend
-      events.onTouchcancel = availableEvents.onTouchcancel
     }
     if (openOnFocus.value) {
       events.onFocus = availableEvents.onFocus
@@ -321,9 +321,24 @@ export function useActivator (
     }
   })
 
+  // the cursor point is in viewport coordinates, so it has to follow the activator
+  function onScroll () {
+    const rect = activatorEl.value?.getBoundingClientRect()
+    if (!cursorOffset || !rect) return
+    cursorTarget.value = [rect.left + cursorOffset[0], rect.top + cursorOffset[1]]
+  }
+  watch(isActive, val => {
+    if (val) document.addEventListener('scroll', onScroll, { capture: true, passive: true })
+    else document.removeEventListener('scroll', onScroll, { capture: true })
+  })
+
+  watch([activatorEl, () => props.contextMenu], ([el, contextMenu]) => {
+    if (el && contextMenu) preventCallout(el)
+  }, { immediate: true })
+
   // clearing earlier makes the leave transition fly back to the activator
   function onAfterLeave () {
-    if (!isActive.value) cursorTarget.value = undefined
+    if (!isActive.value) setCursorTarget(undefined)
   }
 
   const activatorRef = templateRef()
@@ -360,7 +375,8 @@ export function useActivator (
   }, { flush: 'post', immediate: true })
 
   onScopeDispose(() => {
-    clearTimeout(touchHoldTimer)
+    touchHold.cancel()
+    document.removeEventListener('scroll', onScroll, { capture: true })
     scope?.stop()
   })
 
