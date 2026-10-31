@@ -21,6 +21,7 @@ import { useLocale } from '@/composables/locale'
 import { useProxiedModel } from '@/composables/proxiedModel'
 import { makeRoundedProps, useRounded } from '@/composables/rounded'
 import { makeRouterProps, useLink } from '@/composables/router'
+import { useSelectLink } from '@/composables/selectLink'
 import { makeSizeProps, useSize } from '@/composables/size'
 import { makeTagProps } from '@/composables/tag'
 import { makeThemeProps, provideTheme } from '@/composables/theme'
@@ -181,9 +182,14 @@ export const VChip = genericComponent<VChipSlots>()({
 
       if (!isClickable.value) return
 
-      link.navigate.value?.(e)
-      group?.toggle()
+      if (link.isRouterLink.value) {
+        link.navigate.value?.(e)
+      } else {
+        group?.toggle()
+      }
     }
+
+    useSelectLink(link, group?.select)
 
     function onKeyDown (e: KeyboardEvent) {
       if (e.key === 'Enter' || e.key === ' ') {
