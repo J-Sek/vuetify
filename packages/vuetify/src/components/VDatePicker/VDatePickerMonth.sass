@@ -74,23 +74,26 @@
       opacity: 0.06
 
   .v-date-picker-month__day
+    // keeps rounded ends concentric with the button when cells are wider than the day size
+    $range-edge-inset: calc(50% - #{$date-picker-month-day-size} / 2)
+
     &--range-start > .v-date-picker-month__range-bg
-      inset-inline-start: $date-picker-month-range-selection-inset
+      inset-inline-start: $range-edge-inset
       border-start-start-radius: var(--range-selection-rounding)
       border-end-start-radius: var(--range-selection-rounding)
 
     &--range-end > .v-date-picker-month__range-bg
-      inset-inline-end: $date-picker-month-range-selection-inset
+      inset-inline-end: $range-edge-inset
       border-start-end-radius: var(--range-selection-rounding)
       border-end-end-radius: var(--range-selection-rounding)
 
     &--preview-start > .v-date-picker-month__range-bg
-      inset-inline-start: $date-picker-month-range-selection-inset
+      inset-inline-start: $range-edge-inset
       border-start-start-radius: var(--range-selection-rounding)
       border-end-start-radius: var(--range-selection-rounding)
 
     &--preview-end > .v-date-picker-month__range-bg
-      inset-inline-end: $date-picker-month-range-selection-inset
+      inset-inline-end: $range-edge-inset
       border-start-end-radius: var(--range-selection-rounding)
       border-end-end-radius: var(--range-selection-rounding)
 
@@ -101,7 +104,7 @@
       &:last-of-type,
       &:has(+ .v-date-picker-month__day--hide-adjacent)
         > .v-date-picker-month__range-bg
-          inset-inline-end: 1px
+          inset-inline-end: $range-edge-inset
           border-start-end-radius: var(--range-selection-rounding)
           border-end-end-radius: var(--range-selection-rounding)
 
@@ -112,7 +115,7 @@
       &:first-of-type,
       .v-date-picker-month__day--hide-adjacent + &
         > .v-date-picker-month__range-bg
-          inset-inline-start: 1px
+          inset-inline-start: $range-edge-inset
           border-start-start-radius: var(--range-selection-rounding)
           border-end-start-radius: var(--range-selection-rounding)
 
