@@ -20,6 +20,7 @@ type VirtualProps = {
   itemHeight: number | string | null | undefined
   itemKey: SelectItemKey
   height: number | string | undefined
+  buffer: number | string
 }
 
 export type ScrollToPosition = 'start' | 'center' | 'end'
@@ -34,6 +35,10 @@ export const makeVirtualProps = propsFactory({
     default: null,
   },
   height: [Number, String],
+  buffer: {
+    type: [Number, String],
+    default: 100,
+  },
 }, 'virtual')
 
 export function useVirtual <T> (props: VirtualProps, items: Ref<readonly T[]>) {
@@ -225,10 +230,11 @@ export function useVirtual <T> (props: VirtualProps, items: Ref<readonly T[]>) {
     const scrollTop = lastScrollTop - markerOffset
     const direction = Math.sign(scrollVelocity)
 
-    const startPx = Math.max(0, scrollTop - BUFFER_PX)
+    const buffer = Number(props.buffer)
+    const startPx = Math.max(0, scrollTop - buffer)
     const start = clamp(calculateIndex(startPx), 0, items.value.length)
 
-    const endPx = scrollTop + viewportHeight.value + BUFFER_PX
+    const endPx = scrollTop + viewportHeight.value + buffer
     const end = clamp(calculateIndex(endPx) + 1, start + 1, items.value.length)
 
     if (
@@ -281,7 +287,7 @@ export function useVirtual <T> (props: VirtualProps, items: Ref<readonly T[]>) {
     // Move the window first so paddingTop/Bottom make scrollHeight large enough
     // before we assign scrollTop (otherwise the browser clamps the scroll).
     const itemSize = itemHeight.value || 16
-    const buffer = Math.ceil(BUFFER_PX / itemSize)
+    const buffer = Math.ceil(Number(props.buffer) / itemSize)
     const viewport = Math.max(1, Math.ceil((viewportHeight.value || 0) / itemSize))
 
     // paddingTop comes from first and must not exceed the scrollTop assigned below

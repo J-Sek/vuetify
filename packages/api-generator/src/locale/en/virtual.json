@@ -1,5 +1,6 @@
 {
   "props": {
+    "buffer": "Distance in pixels to keep rendered beyond each edge of the visible area. Larger values render items earlier during fast scrolling, at the cost of more items in the DOM.",
     "itemHeight": "Height in pixels of each item to display."
   },
   "exposed": {

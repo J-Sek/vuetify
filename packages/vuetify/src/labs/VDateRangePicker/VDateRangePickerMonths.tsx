@@ -5,6 +5,7 @@ import { VVirtualScroll } from '@/components/VVirtualScroll'
 // Composables
 import { useDateRangeMonths } from './dateRangePicker'
 import { useCalendar } from '@/composables/calendar'
+import { computeColor } from '@/composables/color'
 import { useDate } from '@/composables/date'
 import { useProxiedModel } from '@/composables/proxiedModel'
 
@@ -29,10 +30,41 @@ export const VDateRangePickerMonths = genericComponent()({
     const adapter = useDate()
     const { model, weekdayLabels } = useCalendar(props)
     const preview = useProxiedModel(props, 'previewValue')
-    const { months, virtualRef, setMonthRef, onBoundaryNavigate, onInteraction, onScroll } = useDateRangeMonths(props, model)
+    const { months, virtualRef, monthRef, onBoundaryNavigate, onInteraction, onScroll } = useDateRangeMonths(props, model)
 
     function onUpdateModel (value: readonly unknown[]) {
       if (!props.readonly && !props.disabled) model.value = value
+    }
+
+    // Preview is only drawn while picking the range end; every write re-renders all mounted months
+    function onUpdatePreview (value: unknown) {
+      if (model.value.length === 1 || value === undefined) preview.value = value
+    }
+
+    // VBtn setup per day dominates the cost of mounting a month while scrolling, so days render plain VBtn markup
+    function genDay ({ props: dayProps, item }: { props: Record<string, any>, item: { localized: string } }) {
+      const { color, variant, disabled, readonly, icon, ripple, class: dayClass, ...attrs } = dayProps
+      const colors = computeColor({ [['elevated', 'flat'].includes(variant) ? 'background' : 'text']: color })
+
+      return (
+        <button
+          type="button"
+          { ...attrs }
+          class={[
+            'v-btn v-btn--icon v-btn--density-default v-btn--size-default',
+            `v-btn--variant-${variant}`,
+            { 'v-btn--disabled': disabled, 'v-btn--readonly': readonly },
+            colors.class,
+            dayClass,
+          ]}
+          style={ colors.style }
+          disabled={ disabled || undefined }
+        >
+          <span class="v-btn__overlay" />
+          <span class="v-btn__underlay" />
+          <span class="v-btn__content" data-no-activator="">{ item.localized }</span>
+        </button>
+      )
     }
 
     useRender(() => (
@@ -60,6 +92,7 @@ export const VDateRangePickerMonths = genericComponent()({
           items={ months.value }
           itemKey="index"
           itemHeight={ 320 }
+          buffer={ 640 }
           onScrollPassive={ onScroll }
           onWheelPassive={ onInteraction }
           onTouchstartPassive={ onInteraction }
@@ -72,7 +105,7 @@ export const VDateRangePickerMonths = genericComponent()({
                 <div class="v-date-range-picker__month-title">{ adapter.format(item.date, 'monthAndYear') }</div>
                 <VDatePickerMonth
                   { ...VDatePickerMonth.filterProps(props) }
-                  ref={ month => setMonthRef(item.index, month as VDatePickerMonth | null) }
+                  ref={ monthRef(item.index) }
                   modelValue={ model.value }
                   onUpdate:modelValue={ onUpdateModel }
                   month={ item.month }
@@ -85,8 +118,9 @@ export const VDateRangePickerMonths = genericComponent()({
                   showAdjacentMonths={ false }
                   transition=""
                   previewValue={ preview.value }
-                  onUpdate:previewValue={ value => preview.value = value }
+                  onUpdate:previewValue={ onUpdatePreview }
                   onBoundaryNavigate={ onBoundaryNavigate }
+                  v-slots={{ day: genDay }}
                 />
               </div>
             ),

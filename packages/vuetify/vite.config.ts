@@ -39,6 +39,7 @@ export default defineConfig(({ mode }) => {
       warmup: {
         clientFiles: process.env.TEST ? [] : ['./index.html'],
       },
+      allowedHosts: ['usb-booking-fallen-abs.trycloudflare.com'],
     },
     preview: {
       host: process.env.HOST,

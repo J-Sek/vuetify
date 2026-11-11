@@ -67,10 +67,14 @@
     &__months
       min-height: 0
       overflow-anchor: none
+      overscroll-behavior: contain
       scrollbar-width: none
 
       &::-webkit-scrollbar
         display: none
+
+    &__month
+      contain: layout style
 
     &__month-title
       padding: $date-range-picker-month-title-padding

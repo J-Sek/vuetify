@@ -20,6 +20,7 @@ export function useDateRangeMonths (props: CalendarProps, model: Ref<readonly un
   const { minDate, maxDate, clampDate } = useCalendarRange(props)
   const virtualRef = shallowRef<VVirtualScroll>()
   const monthRefs = new Map<number, VDatePickerMonth>()
+  const monthRefSetters = new Map<number, (month: unknown) => void>()
   let pendingFocus: string | undefined
   let anchorDate: unknown
   let anchoring = true
@@ -81,6 +82,7 @@ export function useDateRangeMonths (props: CalendarProps, model: Ref<readonly un
   function setMonthRef (index: number, month: VDatePickerMonth | null) {
     if (!month) {
       monthRefs.delete(index)
+      monthRefSetters.delete(index)
       return
     }
 
@@ -89,6 +91,12 @@ export function useDateRangeMonths (props: CalendarProps, model: Ref<readonly un
       const iso = pendingFocus
       nextTick(() => focusDate(iso))
     }
+  }
+
+  // A new function ref on every render makes Vue unset and re-set it on each patch
+  function monthRef (index: number) {
+    if (!monthRefSetters.has(index)) monthRefSetters.set(index, month => setMonthRef(index, month as VDatePickerMonth | null))
+    return monthRefSetters.get(index)!
   }
 
   function isDateDisabled (date: unknown) {
@@ -167,5 +175,5 @@ export function useDateRangeMonths (props: CalendarProps, model: Ref<readonly un
     scrollToDate(anchorDate)
   }, { flush: 'post' })
 
-  return { months, virtualRef, setMonthRef, onBoundaryNavigate, onInteraction, onScroll }
+  return { months, virtualRef, monthRef, onBoundaryNavigate, onInteraction, onScroll }
 }
